@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Administradores</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Administradores</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Cédula</th>
+                    <th>Celular</th>
+                    <th>Correo Institucional</th>
+                    <th>Correo Personal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for admin in administradores %}
+                <tr>
+                    <td>{{ admin.nombres }}</td>
+                    <td>{{ admin.apellidos }}</td>
+                    <td>{{ admin.numero_cedula }}</td>
+                    <td>{{ admin.numero_celular }}</td>
+                    <td>{{ admin.correo_institucional }}</td>
+                    <td>{{ admin.correo_personal }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h2>Crear Nuevo Administrador</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+</body>
+</html>
