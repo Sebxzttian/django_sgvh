@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import redirect
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('horarios.urls')),  # Asume que tu app se llama 'horarios'
+    path('', lambda request: redirect('login'), name='home'),  # Redirige la página principal al login
+    path('', include('horarios.urls')),
 ]
