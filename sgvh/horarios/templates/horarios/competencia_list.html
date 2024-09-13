@@ -13,6 +13,7 @@
             <th>Resultado de Aprendizaje</th>
             <th>Instructor</th>
             <th>Programa de Formación</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -24,6 +25,10 @@
             <td>{{ competencia.resultado_aprendizaje }}</td>
             <td>{{ competencia.instructor.nombres }} {{ competencia.instructor.apellidos }}</td>
             <td>{{ competencia.programa_formacion.nombre_programa }}</td>
+            <td>
+                <a href="{% url 'competencia_form' competencia.id %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'competencia_confirm_delete' competencia.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>

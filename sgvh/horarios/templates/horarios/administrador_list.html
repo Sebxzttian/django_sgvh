@@ -1,15 +1,17 @@
 {% extends 'horarios/base.html' %}
 
-{% block content %}<br><br>
+{% block content %}
+<br><br>
 <h1>Administradores</h1>
 
+<!-- Tabla de Administradores -->
 <table>
     <thead>
         <tr>
             <th>Nombres</th>
             <th>Apellidos</th>
             <th>Cédula</th>
-            <!-- Otros campos -->
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -18,16 +20,27 @@
             <td>{{ admin.nombres }}</td>
             <td>{{ admin.apellidos }}</td>
             <td>{{ admin.numero_cedula }}</td>
-            <!-- Otros campos -->
+            <td>
+                <!-- Botón para editar -->
+                <a href="{% url 'editar_administrador' admin.id %}">Editar</a>
+                <!-- Botón para eliminar -->
+                <a href="{% url 'eliminar_administrador' admin.id %}" onclick="return confirm('¿Estás seguro de que quieres eliminar a este administrador?');">Eliminar</a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
 
-<h2>Crear Nuevo Administrador</h2>
+<!-- Formulario para Crear o Editar Administrador -->
+<h2>{% if form.instance.pk %}Editar Administrador{% else %}Crear Nuevo Administrador{% endif %}</h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Guardar</button>
+    <!-- Si se está editando, se incluye el ID del administrador -->
+    {% if form.instance.pk %}
+    <input type="hidden" name="id" value="{{ form.instance.id }}">
+    {% endif %}
 </form>
+
 {% endblock %}

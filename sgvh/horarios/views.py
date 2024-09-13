@@ -1,42 +1,14 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
+from django.urls import reverse_lazy
+from django.views.generic import ListView, UpdateView, DeleteView, CreateView
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Administrador, Instructor, ProgramaFormacion, Ambiente, Competencia
-from django import forms
+from .forms import AdministradorForm, InstructorForm, ProgramaFormacionForm, AmbienteForm, CompetenciaForm
 
-def is_admin(user):
-    return user.is_authenticated and user.is_staff
-
-# Formularios para cada modelo
-class AdministradorForm(forms.ModelForm):
-    class Meta:
-        model = Administrador
-        fields = ['nombres', 'apellidos', 'numero_cedula', 'numero_celular', 'correo_institucional', 'correo_personal']
-
-class InstructorForm(forms.ModelForm):
-    class Meta:
-        model = Instructor
-        fields = ['nombres', 'apellidos', 'correo_personal', 'correo_institucional', 'numero_celular', 'numero_cedula', 'competencias_imparte']
-
-class ProgramaFormacionForm(forms.ModelForm):
-    class Meta:
-        model = ProgramaFormacion
-        fields = ['nombre_programa', 'jornada', 'fecha_inicio', 'fecha_fin', 'instructores']
-
-class AmbienteForm(forms.ModelForm):
-    class Meta:
-        model = Ambiente
-        fields = ['nombre_ambiente', 'sede', 'programa_formacion', 'instructores']
-
-class CompetenciaForm(forms.ModelForm):
-    class Meta:
-        model = Competencia
-        fields = ['nombre', 'unidad_competencia', 'duracion_estimada', 'resultado_aprendizaje', 'instructor', 'programa_formacion']
-
-# Vistas protegidas para cada entidad
-class AdministradorListCreateView(LoginRequiredMixin, ListView):
+# Vistas para Administrador
+class AdministradorListView(LoginRequiredMixin, ListView):
     model = Administrador
     template_name = 'horarios/administrador_list.html'
     context_object_name = 'administradores'
@@ -45,15 +17,26 @@ class AdministradorListCreateView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['form'] = AdministradorForm()
         return context
-    
-    def post(self, request, *args, **kwargs):
-        form = AdministradorForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('administrador_list')
-        return self.get(request, *args, **kwargs)
 
-class InstructorListCreateView(LoginRequiredMixin, ListView):
+class AdministradorCreateView(LoginRequiredMixin, CreateView):
+    model = Administrador
+    form_class = AdministradorForm
+    template_name = 'horarios/administrador_form.html'
+    success_url = reverse_lazy('administrador_list')
+
+class AdministradorUpdateView(LoginRequiredMixin, UpdateView):
+    model = Administrador
+    form_class = AdministradorForm
+    template_name = 'horarios/administrador_form.html'
+    success_url = reverse_lazy('administrador_list')
+
+class AdministradorDeleteView(LoginRequiredMixin, DeleteView):
+    model = Administrador
+    template_name = 'horarios/administrador_confirm_delete.html'
+    success_url = reverse_lazy('administrador_list')
+
+# Vistas para Instructor
+class InstructorListView(LoginRequiredMixin, ListView):
     model = Instructor
     template_name = 'horarios/instructor_list.html'
     context_object_name = 'instructores'
@@ -62,15 +45,26 @@ class InstructorListCreateView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['form'] = InstructorForm()
         return context
-    
-    def post(self, request, *args, **kwargs):
-        form = InstructorForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('instructor_list')
-        return self.get(request, *args, **kwargs)
 
-class ProgramaFormacionListCreateView(LoginRequiredMixin, ListView):
+class InstructorCreateView(LoginRequiredMixin, CreateView):
+    model = Instructor
+    form_class = InstructorForm
+    template_name = 'horarios/instructor_form.html'
+    success_url = reverse_lazy('instructor_list')
+
+class InstructorUpdateView(LoginRequiredMixin, UpdateView):
+    model = Instructor
+    form_class = InstructorForm
+    template_name = 'horarios/instructor_form.html'
+    success_url = reverse_lazy('instructor_list')
+
+class InstructorDeleteView(LoginRequiredMixin, DeleteView):
+    model = Instructor
+    template_name = 'horarios/instructor_confirm_delete.html'
+    success_url = reverse_lazy('instructor_list')
+
+# Vistas para ProgramaFormacion
+class ProgramaFormacionListView(LoginRequiredMixin, ListView):
     model = ProgramaFormacion
     template_name = 'horarios/programa_formacion_list.html'
     context_object_name = 'programas'
@@ -79,15 +73,26 @@ class ProgramaFormacionListCreateView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['form'] = ProgramaFormacionForm()
         return context
-    
-    def post(self, request, *args, **kwargs):
-        form = ProgramaFormacionForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('programa_formacion_list')
-        return self.get(request, *args, **kwargs)
 
-class AmbienteListCreateView(LoginRequiredMixin, ListView):
+class ProgramaFormacionCreateView(LoginRequiredMixin, CreateView):
+    model = ProgramaFormacion
+    form_class = ProgramaFormacionForm
+    template_name = 'horarios/programa_formacion_form.html'
+    success_url = reverse_lazy('programa_formacion_list')
+
+class ProgramaFormacionUpdateView(LoginRequiredMixin, UpdateView):
+    model = ProgramaFormacion
+    form_class = ProgramaFormacionForm
+    template_name = 'horarios/programa_formacion_form.html'
+    success_url = reverse_lazy('programa_formacion_list')
+
+class ProgramaFormacionDeleteView(LoginRequiredMixin, DeleteView):
+    model = ProgramaFormacion
+    template_name = 'horarios/programa_formacion_confirm_delete.html'
+    success_url = reverse_lazy('programa_formacion_list')
+
+# Vistas para Ambiente
+class AmbienteListView(LoginRequiredMixin, ListView):
     model = Ambiente
     template_name = 'horarios/ambiente_list.html'
     context_object_name = 'ambientes'
@@ -96,15 +101,26 @@ class AmbienteListCreateView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['form'] = AmbienteForm()
         return context
-    
-    def post(self, request, *args, **kwargs):
-        form = AmbienteForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('ambiente_list')
-        return self.get(request, *args, **kwargs)
 
-class CompetenciaListCreateView(LoginRequiredMixin, ListView):
+class AmbienteCreateView(LoginRequiredMixin, CreateView):
+    model = Ambiente
+    form_class = AmbienteForm
+    template_name = 'horarios/ambiente_form.html'
+    success_url = reverse_lazy('ambiente_list')
+
+class AmbienteUpdateView(LoginRequiredMixin, UpdateView):
+    model = Ambiente
+    form_class = AmbienteForm
+    template_name = 'horarios/ambiente_form.html'
+    success_url = reverse_lazy('ambiente_list')
+
+class AmbienteDeleteView(LoginRequiredMixin, DeleteView):
+    model = Ambiente
+    template_name = 'horarios/ambiente_confirm_delete.html'
+    success_url = reverse_lazy('ambiente_list')
+
+# Vistas para Competencia
+class CompetenciaListView(LoginRequiredMixin, ListView):
     model = Competencia
     template_name = 'horarios/competencia_list.html'
     context_object_name = 'competencias'
@@ -113,18 +129,29 @@ class CompetenciaListCreateView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['form'] = CompetenciaForm()
         return context
-    
-    def post(self, request, *args, **kwargs):
-        form = CompetenciaForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('competencia_list')
-        return self.get(request, *args, **kwargs)
 
+class CompetenciaCreateView(LoginRequiredMixin, CreateView):
+    model = Competencia
+    form_class = CompetenciaForm
+    template_name = 'horarios/competencia_form.html'
+    success_url = reverse_lazy('competencia_list')
+
+class CompetenciaUpdateView(LoginRequiredMixin, UpdateView):
+    model = Competencia
+    form_class = CompetenciaForm
+    template_name = 'horarios/competencia_form.html'
+    success_url = reverse_lazy('competencia_list')
+
+class CompetenciaDeleteView(LoginRequiredMixin, DeleteView):
+    model = Competencia
+    template_name = 'horarios/competencia_confirm_delete.html'
+    success_url = reverse_lazy('competencia_list')
+
+# Vista para el Login
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None and user.is_staff:
             login(request, user)

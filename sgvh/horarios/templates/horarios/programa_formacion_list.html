@@ -12,6 +12,7 @@
             <th>Fecha de Inicio</th>
             <th>Fecha de Fin</th>
             <th>Instructores</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -25,6 +26,10 @@
                 {% for instructor in programa.instructores.all %}
                     {{ instructor.nombres }} {{ instructor.apellidos }}{% if not forloop.last %}, {% endif %}
                 {% endfor %}
+            </td>
+            <td>
+                <a href="{% url 'programa_formacion_form' programa.id %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'programa_formacion_confirm_delete' programa.id %}" class="btn btn-danger btn-sm">Eliminar</a>
             </td>
         </tr>
         {% endfor %}

@@ -14,6 +14,7 @@
             <th>Celular</th>
             <th>Cédula</th>
             <th>Competencias</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -26,6 +27,10 @@
             <td>{{ instructor.numero_celular }}</td>
             <td>{{ instructor.numero_cedula }}</td>
             <td>{{ instructor.competencias_imparte }}</td>
+            <td>
+                <a href="{% url 'instructor_form' instructor.id %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'instructor_confirm_delete' instructor.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>

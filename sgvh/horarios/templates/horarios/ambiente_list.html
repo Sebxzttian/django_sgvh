@@ -11,6 +11,7 @@
             <th>Sede</th>
             <th>Programa de Formación</th>
             <th>Instructores</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -23,6 +24,10 @@
                 {% for instructor in ambiente.instructores.all %}
                     {{ instructor.nombres }} {{ instructor.apellidos }}{% if not forloop.last %}, {% endif %}
                 {% endfor %}
+            </td>
+            <td>
+                <a href="{% url 'ambiente_form' ambiente.id %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'ambiente_confirm_delete' ambiente.id %}" class="btn btn-danger btn-sm">Eliminar</a>
             </td>
         </tr>
         {% endfor %}
