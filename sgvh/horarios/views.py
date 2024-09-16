@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Administrador, Instructor, ProgramaFormacion, Ambiente, Competencia
 from .forms import AdministradorForm, InstructorForm, ProgramaFormacionForm, AmbienteForm, CompetenciaForm
 
-# Vistas para Administrador
+# Vistas para Administrado
 class AdministradorListView(LoginRequiredMixin, ListView):
     model = Administrador
     template_name = 'horarios/administrador_list.html'
@@ -24,16 +24,19 @@ class AdministradorCreateView(LoginRequiredMixin, CreateView):
     template_name = 'horarios/administrador_form.html'
     success_url = reverse_lazy('administrador_list')
 
+
 class AdministradorUpdateView(LoginRequiredMixin, UpdateView):
     model = Administrador
     form_class = AdministradorForm
     template_name = 'horarios/administrador_form.html'
     success_url = reverse_lazy('administrador_list')
 
+
 class AdministradorDeleteView(LoginRequiredMixin, DeleteView):
     model = Administrador
     template_name = 'horarios/administrador_confirm_delete.html'
     success_url = reverse_lazy('administrador_list')
+
 
 # Vistas para Instructor
 class InstructorListView(LoginRequiredMixin, ListView):

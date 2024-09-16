@@ -4,6 +4,9 @@
 
 {% block content %}
 <h1>Instructores</h1>
+
+<a href="{% url 'instructor_create' %}" class="btn btn-primary mb-3">Crear Nuevo Instructor</a>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -28,18 +31,13 @@
             <td>{{ instructor.numero_cedula }}</td>
             <td>{{ instructor.competencias_imparte }}</td>
             <td>
-                <a href="{% url 'instructor_form' instructor.id %}" class="btn btn-warning btn-sm">Editar</a>
-                <a href="{% url 'instructor_confirm_delete' instructor.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                <!-- Botón para editar -->
+                <a href="{% url 'instructor_edit' instructor.pk %}">Editar</a>
+                <!-- Botón para eliminar -->
+                <a href="{% url 'instructor_delete' instructor.pk %}" onclick="return confirm('¿Estás seguro de que quieres eliminar a este instructor?');">Eliminar</a>
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
-
-<h2>Crear Nuevo Instructor</h2>
-<form method="post" class="mt-4">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Guardar</button>
-</form>
 {% endblock %}

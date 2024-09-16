@@ -4,6 +4,8 @@
 <br><br>
 <h1>Administradores</h1>
 
+<div class="main-content">
+<a href="{% url 'administrador_create' %}" class="btn btn-primary mb-3">Crear Nuevo Administrador</a>
 <!-- Tabla de Administradores -->
 <table>
     <thead>
@@ -22,25 +24,13 @@
             <td>{{ admin.numero_cedula }}</td>
             <td>
                 <!-- Botón para editar -->
-                <a href="{% url 'editar_administrador' admin.id %}">Editar</a>
+                <a href="{% url 'administrador_edit' admin.pk %}">Editar</a>
                 <!-- Botón para eliminar -->
-                <a href="{% url 'eliminar_administrador' admin.id %}" onclick="return confirm('¿Estás seguro de que quieres eliminar a este administrador?');">Eliminar</a>
+                <a href="{% url 'administrador_delete' admin.pk %}" onclick="return confirm('¿Estás seguro de que quieres eliminar a este administrador?');">Eliminar</a>
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
-
-<!-- Formulario para Crear o Editar Administrador -->
-<h2>{% if form.instance.pk %}Editar Administrador{% else %}Crear Nuevo Administrador{% endif %}</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Guardar</button>
-    <!-- Si se está editando, se incluye el ID del administrador -->
-    {% if form.instance.pk %}
-    <input type="hidden" name="id" value="{{ form.instance.id }}">
-    {% endif %}
-</form>
-
+</div>
 {% endblock %}

@@ -4,6 +4,9 @@
 
 {% block content %}
 <h1>Competencias</h1>
+
+<a href="{% url 'competencia_create' %}" class="btn btn-primary mb-3">Crear Nueva Competencia</a>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -26,18 +29,13 @@
             <td>{{ competencia.instructor.nombres }} {{ competencia.instructor.apellidos }}</td>
             <td>{{ competencia.programa_formacion.nombre_programa }}</td>
             <td>
-                <a href="{% url 'competencia_form' competencia.id %}" class="btn btn-warning btn-sm">Editar</a>
-                <a href="{% url 'competencia_confirm_delete' competencia.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                <!-- Botón para editar -->
+                <a href="{% url 'competencia_edit' competencia.pk %}">Editar</a>
+                <!-- Botón para eliminar -->
+                <a href="{% url 'competencia_delete' competencia.pk %}" onclick="return confirm('¿Estás seguro de que quieres eliminar a este administrador?');">Eliminar</a>
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
-
-<h2>Crear Nueva Competencia</h2>
-<form method="post" class="mt-4">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Guardar</button>
-</form>
 {% endblock %}

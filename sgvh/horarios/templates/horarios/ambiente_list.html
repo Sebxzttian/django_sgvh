@@ -4,6 +4,9 @@
 
 {% block content %}
 <h1>Ambientes</h1>
+
+<a href="{% url 'ambiente_create' %}" class="btn btn-primary mb-3">Crear Nuevo Ambiente</a>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -26,18 +29,13 @@
                 {% endfor %}
             </td>
             <td>
-                <a href="{% url 'ambiente_form' ambiente.id %}" class="btn btn-warning btn-sm">Editar</a>
-                <a href="{% url 'ambiente_confirm_delete' ambiente.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                <!-- Botón para editar -->
+                <a href="{% url 'ambiente_edit' ambiente.pk %}">Editar</a>
+                <!-- Botón para eliminar -->
+                <a href="{% url 'ambiente_delete' ambiente.pk %}" onclick="return confirm('¿Estás seguro de que quieres eliminar a este administrador?');">Eliminar</a>
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
-
-<h2>Crear Nuevo Ambiente</h2>
-<form method="post" class="mt-4">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Guardar</button>
-</form>
 {% endblock %}
