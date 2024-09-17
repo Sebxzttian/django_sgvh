@@ -5,45 +5,85 @@
 <h1>Administradores</h1>
 
 <div class="main-content">
-<a href="{% url 'administrador_create' %}" class="btn btn-primary mb-3">Crear Nuevo Administrador</a>
-<!-- Tabla de Administradores -->
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Nombres</th>
-            <th>Apellidos</th>
-            <th>Cédula</th>
-            <th>Célular</th>
-            <th>Correo Institucional</th>
-            <th>Correo Personal</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for admin in administradores %}
-        <tr>
-            <td>{{ admin.nombres }}</td>
-            <td>{{ admin.apellidos }}</td>
-            <td>{{ admin.numero_cedula }}</td>
-            <td>{{ admin.numero_celular }}</td>
-            <td>{{ admin.correo_institucional }}</td>
-            <td>{{ admin.correo_personal }}</td>
-            <td>
-                <!-- Botón para editar -->
-                <a href="{% url 'administrador_edit' admin.pk %}" class="btn btn-warning">
-                    <i class="bi bi-pencil-square"></i>
-                </a>
-                
-                <!-- Botón para eliminar -->
-                <a href="{% url 'administrador_delete' admin.pk %}" onclick="return confirm('¿Estás seguro de que quieres eliminar a este administrador?');" class="btn btn-danger">
-                    <i class="bi bi-trash3"></i>
-                </a>
-                
-                
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <a href="{% url 'administrador_create' %}" class="btn btn-primary mb-3">Crear Nuevo Administrador</a>
+    <!-- Tabla de Administradores -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Cédula</th>
+                <th>Célular</th>
+                <th>Correo Institucional</th>
+                <th>Correo Personal</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for admin in administradores %}
+            <tr>
+                <td>{{ admin.nombres }}</td>
+                <td>{{ admin.apellidos }}</td>
+                <td>{{ admin.numero_cedula }}</td>
+                <td>{{ admin.numero_celular }}</td>
+                <td>{{ admin.correo_institucional }}</td>
+                <td>{{ admin.correo_personal }}</td>
+                <td>
+                    <!-- Botón para editar -->
+                    <a href="{% url 'administrador_edit' admin.pk %}" class="btn btn-warning">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                    
+                    <!-- Botón para eliminar -->
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" class="btn btn-danger" data-url="{% url 'administrador_delete' admin.pk %}">
+                        <i class="bi bi-trash3"></i>
+                    </a>
+                    
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
+
+<!-- Modal de Confirmación de Eliminación -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro de que quieres eliminar a <span id="adminName"></span>?
+      </div>
+      <div class="modal-footer">
+        <form id="deleteForm" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+        </form>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var deleteLinks = document.querySelectorAll('[data-bs-toggle="modal"][data-bs-target="#confirmDeleteModal"]');
+    var confirmDeleteForm = document.getElementById('deleteForm');
+    var adminNameSpan = document.getElementById('adminName');
+
+    deleteLinks.forEach(function (link) {
+      link.addEventListener('click', function () {
+        var url = link.getAttribute('data-url');
+        var name = link.getAttribute('data-name') || 'este administrador'; // Default name if not provided
+        
+        adminNameSpan.textContent = name;
+        confirmDeleteForm.action = url;
+      });
+    });
+  });
+</script>
+
 {% endblock %}
