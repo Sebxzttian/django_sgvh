@@ -7,12 +7,15 @@
 <div class="main-content">
 <a href="{% url 'administrador_create' %}" class="btn btn-primary mb-3">Crear Nuevo Administrador</a>
 <!-- Tabla de Administradores -->
-<table>
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Nombres</th>
             <th>Apellidos</th>
             <th>Cédula</th>
+            <th>Célular</th>
+            <th>Correo Institucional</th>
+            <th>Correo Personal</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -22,6 +25,9 @@
             <td>{{ admin.nombres }}</td>
             <td>{{ admin.apellidos }}</td>
             <td>{{ admin.numero_cedula }}</td>
+            <td>{{ admin.numero_celular }}</td>
+            <td>{{ admin.correo_institucional }}</td>
+            <td>{{ admin.correo_personal }}</td>
             <td>
                 <!-- Botón para editar -->
                 <a href="{% url 'administrador_edit' admin.pk %}">Editar</a>
