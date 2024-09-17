@@ -30,9 +30,16 @@
             <td>{{ admin.correo_personal }}</td>
             <td>
                 <!-- Botón para editar -->
-                <a href="{% url 'administrador_edit' admin.pk %}">Editar</a>
+                <a href="{% url 'administrador_edit' admin.pk %}" class="btn btn-warning">
+                    <i class="bi bi-pencil-square"></i>
+                </a>
+                
                 <!-- Botón para eliminar -->
-                <a href="{% url 'administrador_delete' admin.pk %}" onclick="return confirm('¿Estás seguro de que quieres eliminar a este administrador?');">Eliminar</a>
+                <a href="{% url 'administrador_delete' admin.pk %}" onclick="return confirm('¿Estás seguro de que quieres eliminar a este administrador?');" class="btn btn-danger">
+                    <i class="bi bi-trash3"></i>
+                </a>
+                
+                
             </td>
         </tr>
         {% endfor %}
