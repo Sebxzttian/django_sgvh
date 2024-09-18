@@ -15,6 +15,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']  # Añade los hosts permitidos
 
 # Application definition
 INSTALLED_APPS = [
+    'calendario',
     'horarios',
     'django.contrib.admin',
     'django.contrib.auth',

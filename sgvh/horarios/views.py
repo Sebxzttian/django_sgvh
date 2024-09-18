@@ -5,6 +5,7 @@ from django.views.generic import ListView, UpdateView, DeleteView, CreateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Administrador, Instructor, ProgramaFormacion, Ambiente, Competencia
+from calendario.models import HorarioI, HorarioA, HorarioPF, HorarioCC
 from .forms import AdministradorForm, InstructorForm, ProgramaFormacionForm, AmbienteForm, CompetenciaForm
 
 # Vistas para Administrado
