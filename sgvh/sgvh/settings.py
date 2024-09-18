@@ -84,7 +84,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Añadido para colectar archivos estáticos
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'horarios/statics')]  # Añadido para buscar archivos estáticos adicionales
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'horarios/static')]  # Añadido para buscar archivos estáticos adicionales
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
