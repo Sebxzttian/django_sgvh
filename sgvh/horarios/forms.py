@@ -24,4 +24,4 @@ class AmbienteForm(forms.ModelForm):
 class CompetenciaForm(forms.ModelForm):
     class Meta:
         model = Competencia
-        fields = ['nombre', 'unidad_competencia', 'duracion_estimada', 'resultado_aprendizaje', 'instructor', 'programa_formacion']
+        fields = ['nombre', 'codigo_norma', 'unidad_competencia', 'duracion_estimada', 'resultado_aprendizaje', 'instructor', 'programa_formacion']

@@ -11,6 +11,7 @@
     <thead>
         <tr>
             <th>Nombre</th>
+            <th>Codigo Norma</th>
             <th>Unidad de Competencia</th>
             <th>Duración Estimada (horas)</th>
             <th>Resultado de Aprendizaje</th>
@@ -23,19 +24,70 @@
         {% for competencia in competencias %}
         <tr>
             <td>{{ competencia.nombre }}</td>
+            <td>{{ competencia.codigo_norma }}</td>
             <td>{{ competencia.unidad_competencia }}</td>
             <td>{{ competencia.duracion_estimada }}</td>
             <td>{{ competencia.resultado_aprendizaje }}</td>
             <td>{{ competencia.instructor.nombres }} {{ competencia.instructor.apellidos }}</td>
             <td>{{ competencia.programa_formacion.nombre_programa }}</td>
             <td>
-                <!-- Botón para editar -->
-                <a href="{% url 'competencia_edit' competencia.pk %}">Editar</a>
-                <!-- Botón para eliminar -->
-                <a href="{% url 'competencia_delete' competencia.pk %}" onclick="return confirm('¿Estás seguro de que quieres eliminar a este administrador?');">Eliminar</a>
+                <!-- Botón para editar con icono -->
+                <a href="{% url 'competencia_edit' competencia.pk %}" class="btn btn-warning btn-sm" title="Editar">
+                    <i class="bi bi-pencil"></i>
+                </a>
+                
+                <!-- Botón para eliminar con icono y modal -->
+                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ competencia.pk }}" title="Eliminar">
+                    <i class="bi bi-trash"></i>
+                </button>
+
+                <!-- Modal para confirmación de eliminación -->
+                <div class="modal fade" id="deleteModal{{ competencia.pk }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ competencia.pk }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteModalLabel{{ competencia.pk }}">Confirmar Eliminación</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                ¿Estás seguro de que quieres eliminar la competencia "{{ competencia.nombre }}"?
+                            </div>
+                            <div class="modal-footer">
+                                <form method="post" action="{% url 'competencia_delete' competencia.pk %}" id="deleteForm{{ competencia.pk }}">
+                                    {% csrf_token %}
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+{% endblock %}
+
+<!-- Añade los scripts necesarios para el modal de Bootstrap si no están ya incluidos en tu base.html -->
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var deleteButtons = document.querySelectorAll('[data-bs-toggle="modal"]');
+    
+    deleteButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var target = this.getAttribute('data-bs-target');
+            var form = document.querySelector(target + ' form');
+            var confirmButton = form.querySelector('button[type="submit"]');
+            
+            confirmButton.addEventListener('click', function() {
+                form.submit();
+            });
+        });
+    });
+});
+</script>
 {% endblock %}

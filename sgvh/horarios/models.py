@@ -82,6 +82,7 @@ class Ambiente(models.Model):
 
 class Competencia(models.Model):
     nombre = models.CharField(max_length=100)
+    codigo_norma = models.CharField(max_length=50, blank=True, null=True)
     unidad_competencia = models.CharField(max_length=500)
     duracion_estimada = models.CharField(max_length=50, help_text="Duración estimada para lograr el aprendizaje")
     resultado_aprendizaje = models.TextField()

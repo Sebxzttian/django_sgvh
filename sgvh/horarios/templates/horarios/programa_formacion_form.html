@@ -1,13 +1,32 @@
 {% extends 'horarios/base.html' %}
-
+{% load custom_filters %}
 {% block content %}
-<h1>{% if object %}Editar{% else %}Crear{% endif %} Programa de Formación</h1>
-
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Guardar</button>
-</form>
-
-<a href="{% url 'programa_formacion_list' %}">Volver a la lista</a>
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h2 class="text-center mb-0">{% if object %}Editar Administrador{% else %}Crear Nuevo Administrador{% endif %}</h2>
+        </div>
+        <div class="card-body">
+            <form method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ form.non_field_errors }}
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                            {{ field|add_class:"form-control" }}
+                            <div class="invalid-feedback">
+                                {{ field.errors }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-success me-2">Guardar</button>
+                    <a href="{% url 'programa_formacion_list' %}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
