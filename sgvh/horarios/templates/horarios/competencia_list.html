@@ -3,6 +3,9 @@
 {% block title %}Competencias{% endblock %}
 
 {% block content %}
+<div class="container mt-5">
+    <div class="row">
+      <div class="col">
 <h1>Competencias</h1>
 
 <a href="{% url 'competencia_create' %}" class="btn btn-primary mb-3">Crear Nueva Competencia</a>
@@ -67,6 +70,9 @@
         {% endfor %}
     </tbody>
 </table>
+</div>
+</div>
+</div>
 {% endblock %}
 
 <!-- Añade los scripts necesarios para el modal de Bootstrap si no están ya incluidos en tu base.html -->
