@@ -61,6 +61,7 @@ class ProgramaFormacion(models.Model):
         ('Tarde', 'Tarde'),
         ('Noche', 'Noche')
     ]
+    codigo_programa = models.CharField(max_length=15,)
     nombre_programa = models.CharField(max_length=50)
     jornada = models.CharField(max_length=50, choices=JORNADAS)
     numero_ficha = models.CharField(max_length=10)
@@ -72,8 +73,13 @@ class ProgramaFormacion(models.Model):
         return self.nombre_programa
 
 class Ambiente(models.Model):
+    SEDE = [
+        ('Principal', 'Principal'),
+        ('Alternativa', 'Alternativa'),
+        ('Granja', 'Granja')
+    ]
     nombre_ambiente = models.CharField(max_length=100)
-    sede = models.CharField(max_length=100)
+    sede = models.CharField(max_length=100, choices=SEDE )
     programa_formacion = models.ForeignKey(ProgramaFormacion, on_delete=models.CASCADE)
     instructores = models.ManyToManyField(Instructor)
 

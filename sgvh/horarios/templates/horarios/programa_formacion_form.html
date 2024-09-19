@@ -29,4 +29,19 @@
         </div>
     </div>
 </div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+<!-- Flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        flatpickr("#id_fecha_inicio", {
+            dateFormat: "Y-m-d",
+        });
+        flatpickr("#id_fecha_fin", {
+            dateFormat: "Y-m-d",
+        });
+    });
+</script>
 {% endblock %}

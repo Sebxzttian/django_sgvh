@@ -14,7 +14,7 @@ class InstructorForm(forms.ModelForm):
 class ProgramaFormacionForm(forms.ModelForm):
     class Meta:
         model = ProgramaFormacion
-        fields = ['nombre_programa', 'jornada', 'fecha_inicio', 'fecha_fin', 'instructores']
+        fields = ['codigo_programa', 'nombre_programa', 'jornada', 'fecha_inicio', 'fecha_fin', 'instructores']
 
 class AmbienteForm(forms.ModelForm):
     class Meta:

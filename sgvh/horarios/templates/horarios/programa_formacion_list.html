@@ -13,6 +13,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
+            <th>Codigo de Programa</th>
             <th>Nombre del Programa</th>
             <th>Jornada</th>
             <th>Fecha de Inicio</th>
@@ -24,6 +25,7 @@
     <tbody>
         {% for programa in programas %}
         <tr>
+            <td>{{ programa.codigo_programa }}</td>
             <td>{{ programa.nombre_programa }}</td>
             <td>{{ programa.jornada }}</td>
             <td>{{ programa.fecha_inicio }}</td>
