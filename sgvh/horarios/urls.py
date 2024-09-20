@@ -1,4 +1,5 @@
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth.decorators import login_required
 from .views import (
@@ -27,11 +28,15 @@ from .views import (
 )
 
 urlpatterns = [
-    # URLs públicas
+    # Autenticación
     path('login/', login_view, name='login'),
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
 
-    # URLs protegidas
+    # Cambio de contraseña
+    path('password_change/', auth_views.PasswordChangeView.as_view(template_name='horarios/password_change.html'), name='password_change'),
+    path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='horarios/password_change_done.html'), name='password_change_done'),
+
+    # Dashboard protegido
     path('dashboard/', login_required(admin_dashboard), name='admin_dashboard'),
 
     # Administradores
@@ -46,7 +51,7 @@ urlpatterns = [
     path('instructores/<int:pk>/edit/', login_required(InstructorUpdateView.as_view()), name='instructor_edit'),
     path('instructores/<int:pk>/delete/', login_required(InstructorDeleteView.as_view()), name='instructor_delete'),
 
-    # ProgramaFormacion
+    # Programas de formación
     path('programas/', login_required(ProgramaFormacionListView.as_view()), name='programa_formacion_list'),
     path('programas/create/', login_required(ProgramaFormacionCreateView.as_view()), name='programa_formacion_create'),
     path('programas/<int:pk>/edit/', login_required(ProgramaFormacionUpdateView.as_view()), name='programa_formacion_edit'),
