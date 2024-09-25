@@ -65,58 +65,44 @@
     </div>
 
     <!-- Modal de confirmación de cierre de sesión y cambio de contraseña -->
-    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="logoutModalLabel">Opciones</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Pestañas para cambiar entre cerrar sesión y cambiar contraseña -->
-                    <ul class="nav nav-tabs" id="logoutChangePasswordTab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="logout-tab" data-bs-toggle="tab" data-bs-target="#logout" type="button" role="tab" aria-controls="logout" aria-selected="true">Cerrar sesión</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="change-password-tab" data-bs-toggle="tab" data-bs-target="#change-password" type="button" role="tab" aria-controls="change-password" aria-selected="false">Cambiar Contraseña</button>
-                        </li>
-                    </ul>
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logoutModalLabel">Opciones</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Pestañas para cambiar entre cerrar sesión y cambiar contraseña -->
+                <ul class="nav nav-tabs" id="logoutChangePasswordTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="logout-tab" data-bs-toggle="tab" data-bs-target="#logout" type="button" role="tab" aria-controls="logout" aria-selected="true">Cerrar sesión</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="change-password-tab" href="{% url 'password_change' %}" role="tab" aria-controls="change-password" aria-selected="false">Cambiar Contraseña</a>
+                    </li>
+                </ul>
 
-                    <div class="tab-content" id="logoutChangePasswordTabContent">
-                        <!-- Pestaña para cerrar sesión -->
-                        <div class="tab-pane fade show active" id="logout" role="tabpanel" aria-labelledby="logout-tab">
-                            <div class="mt-3">
-                                <p>¿Estás seguro de que quieres cerrar sesión?</p>
-                                <form method="post" action="{% url 'logout' %}">
-                                    {% csrf_token %}
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="submit" class="btn btn-primary">Cerrar sesión</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                        <!-- Pestaña para cambiar contraseña -->
-                        <div class="tab-pane fade" id="change-password" role="tabpanel" aria-labelledby="change-password-tab">
-                            <div class="mt-3">
-                                <h5>Cambiar Contraseña</h5>
-                                <form method="post" action="{% url 'password_change' %}">
-                                    {% csrf_token %}
-                                    {{ form.as_p }}
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
-                                    </div>
-                                </form>
-                            </div>
+                <div class="tab-content" id="logoutChangePasswordTabContent">
+                    <!-- Pestaña para cerrar sesión -->
+                    <div class="tab-pane fade show active" id="logout" role="tabpanel" aria-labelledby="logout-tab">
+                        <div class="mt-3">
+                            <p>¿Estás seguro de que quieres cerrar sesión?</p>
+                            <form method="post" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary">Cerrar sesión</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
