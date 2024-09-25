@@ -74,8 +74,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
 ]
 
-AUTH_USER_MODEL = 'tu_app.Administrador'
-
 # Internacionalización
 LANGUAGE_CODE = 'es'
 TIME_ZONE = 'America/Bogota'
