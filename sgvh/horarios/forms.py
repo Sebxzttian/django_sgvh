@@ -1,7 +1,8 @@
 from django import forms
 from .models import Administrador, Instructor, ProgramaFormacion, Ambiente, Competencia
+from django.contrib.auth.forms import UserCreationForm
 
-class AdministradorForm(forms.ModelForm):
+class AdministradorForm(UserCreationForm):
     class Meta:
         model = Administrador
         fields = ['nombres', 'apellidos', 'numero_cedula', 'numero_celular', 'correo_institucional', 'correo_personal']

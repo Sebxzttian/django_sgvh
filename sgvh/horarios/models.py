@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 class AdministradorManager(BaseUserManager):
     def create_user(self, correo_personal, password=None, **extra_fields):
@@ -12,17 +12,29 @@ class AdministradorManager(BaseUserManager):
 
     def create_superuser(self, correo_personal, password=None, **extra_fields):
         extra_fields.setdefault('is_admin', True)
-        return self.create_user(correo_personal, password, **extra_fields)      
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
 
-class Administrador(AbstractBaseUser):
+        if extra_fields.get('is_admin') is not True:
+            raise ValueError('Superuser debe tener is_admin=True.')
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser debe tener is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser debe tener is_superuser=True.')
+
+        return self.create_user(correo_personal, password, **extra_fields)
+
+class Administrador(AbstractBaseUser, PermissionsMixin):
     nombres = models.CharField(max_length=100)
     apellidos = models.CharField(max_length=100)
     numero_cedula = models.CharField(max_length=20, unique=True)
     numero_celular = models.CharField(max_length=20)
     correo_institucional = models.EmailField()
-    correo_personal = models.EmailField()
+    correo_personal = models.EmailField(unique=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
 
     objects = AdministradorManager()
 
@@ -31,17 +43,6 @@ class Administrador(AbstractBaseUser):
 
     def __str__(self):
         return f"{self.nombres} {self.apellidos}"
-
-    @property
-    def is_staff(self):
-        return self.is_admin
-
-    # Añadir los siguientes métodos requeridos por Django
-    def has_perm(self, perm, obj=None):
-        return True
-
-    def has_module_perms(self, app_label):
-        return True
 
 class Instructor(models.Model):
     nombres = models.CharField(max_length=50)
@@ -61,7 +62,7 @@ class ProgramaFormacion(models.Model):
         ('Tarde', 'Tarde'),
         ('Noche', 'Noche')
     ]
-    codigo_programa = models.CharField(max_length=15,)
+    codigo_programa = models.CharField(max_length=15)
     nombre_programa = models.CharField(max_length=50)
     jornada = models.CharField(max_length=50, choices=JORNADAS)
     numero_ficha = models.CharField(max_length=10)
@@ -79,7 +80,7 @@ class Ambiente(models.Model):
         ('Granja', 'Granja')
     ]
     nombre_ambiente = models.CharField(max_length=100)
-    sede = models.CharField(max_length=100, choices=SEDE )
+    sede = models.CharField(max_length=100, choices=SEDE)
     programa_formacion = models.ForeignKey(ProgramaFormacion, on_delete=models.CASCADE)
     instructores = models.ManyToManyField(Instructor)
 

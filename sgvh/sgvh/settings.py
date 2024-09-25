@@ -1,19 +1,15 @@
 from pathlib import Path
-import os  # Añadido para manejar rutas de archivos
+import os
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Base Directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
-# En producción, deberías mover esto a una variable de entorno
+# Seguridad
 SECRET_KEY = 'django-insecure-*jbj*g(^k==yk!xc#ylgld1w+@mp3h87+(cpoj9gg8c+a=w)!r'
+DEBUG = True  # Cambiar a False en producción
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True  # Cambia a False en producción
-
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']  # Añade los hosts permitidos
-
-# Application definition
+# Aplicaciones instaladas
 INSTALLED_APPS = [
     'horarios',
     'django.contrib.admin',
@@ -22,9 +18,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-     'widget_tweaks',
+    'widget_tweaks',
 ]
 
+# Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -37,10 +34,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'sgvh.urls'
 
+# Templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Añadido para buscar templates en la raíz del proyecto
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -53,21 +51,22 @@ TEMPLATES = [
     },
 ]
 
+# Aplicación WSGI
 WSGI_APPLICATION = 'sgvh.wsgi.application'
 
-# Database
+# Base de Datos
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sgvh_db',  
-        'USER': 'root',                 
-        'PASSWORD': 'root',          
-        'HOST': 'localhost',                  
-        'PORT': '3306',                       
+        'NAME': 'sgvh_db',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
-# Password validation
+# Validación de Contraseñas
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',},
@@ -75,28 +74,34 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
 ]
 
-# Internationalization
+AUTH_USER_MODEL = 'tu_app.Administrador'
+
+# Internacionalización
 LANGUAGE_CODE = 'es'
-TIME_ZONE = 'America/Bogota'  # Ajustado a la zona horaria de Colombia
+TIME_ZONE = 'America/Bogota'
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+# Archivos Estáticos
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Añadido para colectar archivos estáticos
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'horarios/static')]  # Añadido para buscar archivos estáticos adicionales
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'horarios/static')]
 
-# Default primary key field type
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Configuración de Autenticación Personalizada
+AUTH_USER_MODEL = 'horarios.Administrador'  # Modelo personalizado para usuarios (administradores)
 
-# Configuración de redirección de login
+# Redirección de Login
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'admin_dashboard'
 LOGOUT_REDIRECT_URL = 'login'
 
-# Configuraciones adicionales de seguridad (activa estas en producción)
+# Configuraciones de Seguridad
+# En producción, activa estas configuraciones
 # SECURE_SSL_REDIRECT = True
 # SESSION_COOKIE_SECURE = True
 # CSRF_COOKIE_SECURE = True
 # SECURE_BROWSER_XSS_FILTER = True
 # SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Archivo predeterminado para claves primarias
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
