@@ -5,6 +5,8 @@ class AdministradorManager(BaseUserManager):
     def create_user(self, correo_personal, password=None, **extra_fields):
         if not correo_personal:
             raise ValueError("El correo personal debe ser proporcionado")
+        extra_fields.setdefault('is_staff', True)  # Los administradores deben tener acceso al panel
+        extra_fields.setdefault('is_admin', False)  # No todos los usuarios creados son administradores
         user = self.model(correo_personal=self.normalize_email(correo_personal), **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
@@ -32,8 +34,8 @@ class Administrador(AbstractBaseUser, PermissionsMixin):
     correo_institucional = models.EmailField()
     correo_personal = models.EmailField(unique=True)
     is_active = models.BooleanField(default=True)
-    is_admin = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False)  # Solo ciertos usuarios son administradores
+    is_staff = models.BooleanField(default=True)  # Define si tienen acceso al panel de administración
     is_superuser = models.BooleanField(default=False)
 
     objects = AdministradorManager()
