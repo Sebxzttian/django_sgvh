@@ -53,6 +53,9 @@ class Instructor(models.Model):
     numero_celular = models.CharField(max_length=15)
     numero_cedula = models.CharField(max_length=15, unique=True)
     competencias_imparte = models.CharField(max_length=50)
+    
+    class Meta:
+        db_table = "Instructor"
 
     def __str__(self):
         return f"{self.nombres} {self.apellidos}"
@@ -69,6 +72,9 @@ class ProgramaFormacion(models.Model):
     numero_ficha = models.CharField(max_length=10)
     fecha_inicio = models.DateField()
     fecha_fin = models.DateField()
+    
+    class Meta:
+        db_table = "ProgramaFormacion"
 
     def __str__(self):
         return self.nombre_programa
@@ -87,6 +93,9 @@ class Ambiente(models.Model):
     codigo_ambiente = models.CharField(max_length=15)
     nombre_ambiente = models.CharField(max_length=100)
     sede = models.CharField(max_length=100, choices=SEDE)
+    
+    class Meta:
+        db_table = "Ambiente"
 
     def __str__(self):
         return self.nombre_ambiente
@@ -97,6 +106,10 @@ class Competencia(models.Model):
     unidad_competencia = models.CharField(max_length=500)
     duracion_estimada = models.CharField(max_length=50, help_text="Duración estimada para lograr el aprendizaje", verbose_name="Duración estimada (horas)")
     resultado_aprendizaje = models.TextField()
-
+    
+    class Meta:
+        db_table = "Competencia"
+        
     def __str__(self):
         return self.nombre
+
