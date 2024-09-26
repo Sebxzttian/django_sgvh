@@ -75,18 +75,18 @@ class CalPF(models.Model):
     def nombre_competencia(self):
         return self.competencia.nombre
 
-class CalComp(models.Model):
+class CalAmb(models.Model):
     instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE)
     programa = models.ForeignKey(ProgramaFormacion, on_delete=models.CASCADE)
-    ambiente = models.ForeignKey(Ambiente, on_delete=models.CASCADE)
+    competencia = models.ForeignKey(Competencia, on_delete=models.CASCADE)
     start = models.DateTimeField(null=True, blank=True)
     end = models.DateTimeField(null=True, blank=True)
     
     class Meta:
-        db_table = "calcomp"
+        db_table = "calamb"
 
     def __str__(self):
-        return f"{self.instructor.nombres} - {self.programa.nombre_programa} - {self.ambiente.nombre_ambiente}"
+        return f"{self.instructor.nombres} - {self.programa.nombre_programa} - {self.competencia.nombre}"
 
     @property
     def nombres_instructor(self):
@@ -105,9 +105,9 @@ class CalComp(models.Model):
         return self.programa.nombre_programa
 
     @property
-    def codigo_ambiente(self):
-        return self.ambiente.codigo_ambiente
+    def norma_competencia(self):
+        return self.competencia.codigo_norma
 
     @property
-    def nombre_ambiente(self):
-        return self.ambiente.nombre_ambiente
+    def nombre_competencia(self):
+        return self.competencia.nombre
