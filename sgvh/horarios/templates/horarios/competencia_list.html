@@ -18,8 +18,6 @@
             <th>Unidad de Competencia</th>
             <th>Duración Estimada (horas)</th>
             <th>Resultado de Aprendizaje</th>
-            <th>Instructor</th>
-            <th>Programa de Formación</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -31,8 +29,6 @@
             <td>{{ competencia.unidad_competencia }}</td>
             <td>{{ competencia.duracion_estimada }}</td>
             <td>{{ competencia.resultado_aprendizaje }}</td>
-            <td>{{ competencia.instructor.nombres }} {{ competencia.instructor.apellidos }}</td>
-            <td>{{ competencia.programa_formacion.nombre_programa }}</td>
             <td>
                 <!-- Botón para editar con icono -->
                 <a href="{% url 'competencia_edit' competencia.pk %}" class="btn btn-warning btn-sm" title="Editar">

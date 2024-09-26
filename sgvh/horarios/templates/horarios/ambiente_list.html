@@ -13,24 +13,18 @@
 <table class="table table-striped">
     <thead>
         <tr>
+            <th>Código del Ambiente</th>
             <th>Nombre del Ambiente</th>
             <th>Sede</th>
-            <th>Programa de Formación</th>
-            <th>Instructores</th>
             <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
         {% for ambiente in ambientes %}
         <tr>
+            <td>{{ambiente.codigo_ambiente}}</td>
             <td>{{ ambiente.nombre_ambiente }}</td>
             <td>{{ ambiente.sede }}</td>
-            <td>{{ ambiente.programa_formacion.nombre_programa }}</td>
-            <td>
-                {% for instructor in ambiente.instructores.all %}
-                    {{ instructor.nombres }} {{ instructor.apellidos }}{% if not forloop.last %}, {% endif %}
-                {% endfor %}
-            </td>
             <td>
                 <!-- Botón para editar -->
                 <a href="{% url 'ambiente_edit' ambiente.pk %}" class="btn btn-warning">

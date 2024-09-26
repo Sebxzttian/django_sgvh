@@ -17,7 +17,6 @@
                 <th>Cédula</th>
                 <th>Célular</th>
                 <th>Correo Institucional</th>
-                <th>Correo Personal</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -29,7 +28,6 @@
                 <td>{{ admin.numero_cedula }}</td>
                 <td>{{ admin.numero_celular }}</td>
                 <td>{{ admin.correo_institucional }}</td>
-                <td>{{ admin.correo_personal }}</td>
                 <td>
                     <!-- Botón para editar -->
                     <a href="{% url 'administrador_edit' admin.pk %}" class="btn btn-warning">

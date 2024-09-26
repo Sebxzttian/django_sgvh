@@ -13,12 +13,11 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Codigo de Programa</th>
+            <th>Código de Programa</th>
             <th>Nombre del Programa</th>
             <th>Jornada</th>
             <th>Fecha de Inicio</th>
             <th>Fecha de Fin</th>
-            <th>Instructores</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -30,11 +29,6 @@
             <td>{{ programa.jornada }}</td>
             <td>{{ programa.fecha_inicio }}</td>
             <td>{{ programa.fecha_fin }}</td>
-            <td>
-                {% for instructor in programa.instructores.all %}
-                    {{ instructor.nombres }} {{ instructor.apellidos }}{% if not forloop.last %}, {% endif %}
-                {% endfor %}
-            </td>
             <td>
                 <!-- Botón para editar -->
                 <a href="{% url 'programa_formacion_edit' programa.pk %}" class="btn btn-warning">
