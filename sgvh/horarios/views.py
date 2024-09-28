@@ -167,3 +167,11 @@ def login_view(request):
 @login_required
 def admin_dashboard(request):
     return render(request, 'horarios/admin_dashboard.html')
+
+@login_required
+def admin_dashboard(request):
+    # Suponiendo que AUTH_USER_MODEL está configurado con el modelo 'Administrador'
+    administrador = request.user
+    nombre_completo = f"{administrador.nombres} {administrador.apellidos}"
+    
+    return render(request, 'horarios/admin_dashboard.html', {'admin_name': nombre_completo})
