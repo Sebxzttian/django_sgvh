@@ -1,0 +1,46 @@
+{% extends 'baseCI.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Calendario de Instructores</h2>
+    <label for="instructorSelect">Selecciona un Instructor:</label>
+    <select id="instructorSelect" class="form-control">
+        <option value="">--Selecciona un Instructor--</option>
+        {% for instructor in instructores %}
+            <option value="{{ instructor.id }}">{{ instructor.nombres }} {{ instructor.apellidos }}</option>
+        {% endfor %}
+        {% for instructor in instructores %}
+            <p>{{ instructor.nombres }} {{ instructor.apellidos }}</p>
+        {% endfor %}
+
+    </select>
+
+    <div id='calendar'></div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'timeGridWeek',
+            locale: 'es',
+            events: function(fetchInfo, successCallback, failureCallback) {
+                var instructorId = document.getElementById('instructorSelect').value;
+                if (instructorId) {
+                    fetch('/calendarios/get_instructor_events/' + instructorId + '/')
+                        .then(response => response.json())
+                        .then(data => successCallback(data))
+                        .catch(error => failureCallback(error));
+                } else {
+                    successCallback([]);
+                }
+            }
+        });
+        calendar.render();
+
+        document.getElementById('instructorSelect').addEventListener('change', function() {
+            calendar.refetchEvents();
+        });
+    });
+</script>
+{% endblock %}
