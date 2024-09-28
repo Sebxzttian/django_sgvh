@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Administrador, Instructor, ProgramaFormacion, Ambiente, Competencia
 from .forms import AdministradorForm, InstructorForm, ProgramaFormacionForm, AmbienteForm, CompetenciaForm
+from datetime import date
 
 # Vistas para Administrado
 class AdministradorListView(LoginRequiredMixin, ListView):
@@ -170,8 +171,22 @@ def admin_dashboard(request):
 
 @login_required
 def admin_dashboard(request):
-    # Suponiendo que AUTH_USER_MODEL está configurado con el modelo 'Administrador'
     administrador = request.user
     nombre_completo = f"{administrador.nombres} {administrador.apellidos}"
     
-    return render(request, 'horarios/admin_dashboard.html', {'admin_name': nombre_completo})
+    # Contar el número de registros en cada modelo
+    total_administradores = Administrador.objects.count()
+    total_instructores = Instructor.objects.count()
+    total_programas = ProgramaFormacion.objects.count()
+    
+    current_date = date.today()
+
+    # Pasar los datos al template
+    return render(request, 'horarios/admin_dashboard.html', {
+        'admin_name': nombre_completo,
+        'total_administradores': total_administradores,
+        'total_instructores': total_instructores,
+        'total_programas': total_programas,
+        'current_date': current_date
+    })
+   

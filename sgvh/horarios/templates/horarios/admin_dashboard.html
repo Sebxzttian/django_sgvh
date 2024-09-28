@@ -17,20 +17,109 @@
     
     <!-- Custom CSS -->
     <link type='text/css' href="{% static 'css/admin_dashboard.css' %}" rel='stylesheet'>
+
+    <style>
+        body {
+            background-color: #f4f6f9;
+        }
+        .dashboard-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        }
+        .dashboard-header h1 {
+            font-size: 36px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #28a745, #007bff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+        .dashboard-header p {
+            font-size: 16px;
+            color: #6c757d;
+        }
+        .dashboard-header i {
+            font-size: 4rem;
+            color: #28a745; /* Icono de color verde */
+        }
+        .card {
+            border: none;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card-icon {
+            font-size: 4rem;
+            color: #28a745; /* Color verde */
+        }
+        .stats {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #495057;
+            margin-top: 20px;
+        }
+        .card-title {
+            font-weight: bold;
+            font-size: 22px;
+            color: #495057;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
-        <header class="mb-4">
+        <header class="dashboard-header mb-4">
             <div class="d-flex align-items-center">
                 <!-- Icono de administración -->
-                <i class="bi bi-person-circle" style="font-size: 3rem; color: #007bff;"></i>
-                <!-- Mensaje de bienvenida -->
+                <i class="bi bi-person-circle"></i> <!-- Cambiado a verde -->
+                <!-- Mensaje de bienvenida con estilo mejorado -->
                 <h1 class="ms-3">Bienvenido, {{ admin_name }}</h1>
             </div>
+            <!-- Fecha actual -->
+            <div class="text-muted">
+                <p>{{ current_date|date:"D d M Y" }}</p>
+            </div>
         </header>
-        <section>
-            <p>Esta es la página de administración. Aquí puedes gestionar los administradores, instructores y programas de formación.</p>
-        </section>
+
+        <!-- Sección de estadísticas (solo mostrando las tarjetas con contadores) -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card text-center p-4">
+                    <i class="bi bi-shield-lock-fill card-icon"></i>
+                    <div class="mt-3">
+                        <!-- Mostrando el número real de administradores -->
+                        <p class="stats">{{ total_administradores }}</p>
+                        <p class="card-title">Administradores</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center p-4">
+                    <i class="bi bi-people-fill card-icon"></i>
+                    <div class="mt-3">
+                        <!-- Mostrando el número real de instructores -->
+                        <p class="stats">{{ total_instructores }}</p>
+                        <p class="card-title">Instructores</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center p-4">
+                    <i class="bi bi-book-fill card-icon"></i>
+                    <div class="mt-3">
+                        <!-- Mostrando el número real de programas de formación -->
+                        <p class="stats">{{ total_programas }}</p>
+                        <p class="card-title">Programas de Formación</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Bootstrap JS -->
