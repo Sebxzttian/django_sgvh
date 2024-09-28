@@ -1,0 +1,49 @@
+<!-- templates/calendarios/baseCI.html -->
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Calendario Instructores</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+  </head>
+  <body>
+    <div style="display: flex">
+      <nav style="width: 200px">
+        <button onclick="location.href='{% url 'calinst' %}'">
+          Instructores
+        </button>
+        <button onclick="location.href='{% url 'calpf' %}'">
+          Programas de Formación
+        </button>
+        <button onclick="location.href='{% url 'calamb' %}'">Ambientes</button>
+      </nav>
+      <div id="calendar"></div>
+    </div>
+    <script>
+      $(document).ready(function () {
+        function loadEvents(instructornumero_cedula) {
+          $("#calendar").fullCalendar("removeEvents"); // Limpiar eventos actuales
+          $("#calendar").fullCalendar(
+            "addEventSource",
+            "/get_instructor_events/" + instructornumero_cedula
+          ); // Cargar nuevos eventos
+        }
+
+        $("#instructor_select").change(function () {
+          var instructornumero_cedula = $(this).val();
+          loadEvents(instructornumero_cedula);
+        });
+
+        $("#calendar").fullCalendar({
+          // configuración existente...
+        });
+      });
+    </script>
+  </body>
+</html>

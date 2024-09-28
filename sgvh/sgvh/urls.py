@@ -17,9 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
+from calendarios.views import calinst, calamb, calpf, get_instructor_events, get_programa_events, get_ambiente_events
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', lambda request: redirect('login'), name='home'),  # Redirige la página principal al login
     path('', include('horarios.urls')),
+    path('calendarios/', include('calendarios.urls')),
 ]
