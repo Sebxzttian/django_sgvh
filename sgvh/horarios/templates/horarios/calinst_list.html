@@ -1,0 +1,111 @@
+{% extends 'horarios/base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calendario de Instructores</title>
+    <!-- Enlace a Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Enlazar el archivo CSS personalizado --> <!-- Hacer el archivo css para este template (Ramírez) -->
+    <link type='text/css' href="{% static '' %}" rel='stylesheet'>
+    <!-- Enlace a iconos de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <h1>Calendario de Instructores</h1>
+
+      <a href="{% url 'calinst_create' %}" class="btn btn-primary mb-3">Crear Nueva Formación</a>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Nombre del Programa</th>
+            <th>Nombre del Ambiente</th>
+            <th>Nombre de la Competencia</th>
+            <th>Inicio de la Formación</th>
+            <th>Fin de la Formación</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for calinst in calinsts %}
+          <tr>
+            <td>{{ calinst.programa }}</td>
+            <td>{{ calinst.ambiente }}</td>
+            <td>{{ calinst.competencia }}</td>
+            <td>{{ calinst.start|date:"Y-m-d H:i" }}</td>
+            <td>{{ calinst.end|date:"Y-m-d H:i" }}</td>
+            <td>
+              <!-- Botón para editar con icono -->
+              <a href="{% url 'calinst_edit' calinst.pk %}" class="btn btn-warning btn-sm" title="Editar">
+                  <i class="bi bi-pencil"></i>
+              </a>
+              
+              <!-- Botón para eliminar con icono y modal -->
+              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ calinst.pk }}" title="Eliminar">
+                  <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <!-- Modal de Confirmación de Eliminación -->
+      <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              ¿Estás seguro de que quieres eliminar la formación <span id="calinstName"></span>?
+            </div>
+            <div class="modal-footer">
+              <form id="deleteForm" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+              </form>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Enlaces a Bootstrap JS y su dependencia Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var deleteLinks = document.querySelectorAll('[data-bs-toggle="modal"][data-bs-target="#confirmDeleteModal"]');
+    var confirmDeleteForm = document.getElementById('deleteForm');
+    var calinstNameSpan = document.getElementById('calinstName'); 
+
+    deleteLinks.forEach(function (link) {
+      link.addEventListener('click', function () {
+        var url = link.getAttribute('data-url');
+        var name = link.getAttribute('data-name');
+        
+        calinstNameSpan.textContent = name;
+        confirmDeleteForm.action = url;
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
+{% endblock content %}

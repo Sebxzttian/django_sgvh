@@ -24,7 +24,15 @@ from .views import (
     CompetenciaListView,
     CompetenciaCreateView,
     CompetenciaUpdateView,
-    CompetenciaDeleteView
+    CompetenciaDeleteView,
+    CalInstListView,
+    CalInstCreateView,
+    CalInstUpdateView,
+    CalInstDeleteView,
+    CalAmbListView,
+    CalAmbCreateView,
+    CalAmbUpdateView,
+    CalAmbDeleteView
 )
 
 urlpatterns = [
@@ -68,4 +76,16 @@ urlpatterns = [
     path('competencias/create/', login_required(CompetenciaCreateView.as_view()), name='competencia_create'),
     path('competencias/<int:pk>/edit/', login_required(CompetenciaUpdateView.as_view()), name='competencia_edit'),
     path('competencias/<int:pk>/delete/', login_required(CompetenciaDeleteView.as_view()), name='competencia_delete'),
+
+    # Calendario de Instructores
+    path('calinsts/', login_required(CalInstListView.as_view()), name='calinst_list'),
+    path('calinsts/create/', login_required(CalInstCreateView.as_view()), name='calinst_create'),
+    path('calinsts/<int:pk>/edit/', login_required(CalInstUpdateView.as_view()), name='calinst_edit'),
+    path('calinsts/<int:pk>/delete/', login_required(CalInstDeleteView.as_view()), name='calinst_delete'),
+
+    # Calendario de Ambiente
+    path('calambs/', login_required(CalAmbListView.as_view()), name='calamb_list'),
+    path('calambs/create/', login_required(CalAmbCreateView.as_view()), name='calamb_create'),
+    path('calambs/<int:pk>/edit/', login_required(CalAmbUpdateView.as_view()), name='calamb_edit'),
+    path('calambs/<int:pk>/delete/', login_required(CalAmbDeleteView.as_view()), name='calamb_delete'),
 ]

@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import Administrador, Instructor, ProgramaFormacion, Ambiente, Competencia
+from calendarios.models import CalInst, CalAmb, CalPF
 
 class AdministradorForm(UserCreationForm):
     password1 = forms.CharField(
@@ -69,4 +70,28 @@ class CompetenciaForm(forms.ModelForm):
             'unidad_competencia': forms.TextInput(attrs={'class': 'form-control'}),
             'duracion_estimada': forms.TextInput(attrs={'class': 'form-control'}),
             'resultado_aprendizaje': forms.Textarea(attrs={'class': 'form-control'}),
+        }
+
+class CalInstForm(forms.ModelForm):
+    class Meta:
+        model = CalInst
+        fields = ['programa', 'ambiente', 'competencia', 'start', 'end']
+        widgets = {
+            'programa': forms.Select(attrs={'class': 'form-control'}),
+            'ambiente': forms.Select(attrs={'class': 'form-control'}),
+            'competencia': forms.Select(attrs={'class': 'form-control'}),
+            'start': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
+            'end': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
+        }
+
+class CalAmbForm(forms.ModelForm):
+    class Meta:
+        model = CalAmb
+        fields = ['instructor', 'programa', 'competencia', 'start', 'end']
+        widgets = {
+            'instructor': forms.Select(attrs={'class': 'form-control'}),
+            'programa': forms.Select(attrs={'class': 'form-control'}),
+            'competencia': forms.Select(attrs={'class': 'form-control'}),
+            'start': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
+            'end': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
         }

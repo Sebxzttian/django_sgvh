@@ -5,10 +5,11 @@ from django.views.generic import ListView, UpdateView, DeleteView, CreateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Administrador, Instructor, ProgramaFormacion, Ambiente, Competencia
-from .forms import AdministradorForm, InstructorForm, ProgramaFormacionForm, AmbienteForm, CompetenciaForm
+from calendarios.models import CalAmb, CalInst, CalPF
+from .forms import AdministradorForm, InstructorForm, ProgramaFormacionForm, AmbienteForm, CompetenciaForm, CalInstForm
 from datetime import date
 
-# Vistas para Administrado
+# Vistas para Administrador
 class AdministradorListView(LoginRequiredMixin, ListView):
     model = Administrador
     template_name = 'horarios/administrador_list.html'
@@ -151,6 +152,64 @@ class CompetenciaDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'horarios/competencia_confirm_delete.html'
     success_url = reverse_lazy('competencia_list')
 
+#VISTAS PARA LOS CALENDARIOS
+#Vistas para el calendario de los instructores
+class CalInstListView(LoginRequiredMixin, ListView):
+    model = CalInst
+    template_name = 'horarios/calinst_list.html'
+    context_object_name = 'calinsts'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = CalInstForm()
+        return context
+
+class CalInstCreateView(LoginRequiredMixin, CreateView):
+    model = CalInst
+    form_class = CalInstForm
+    template_name = 'horarios/calinst_form.html'
+    success_url = reverse_lazy('calinst_list')
+
+class CalInstUpdateView(LoginRequiredMixin, UpdateView):
+    model = CalInst
+    form_class = CalInstForm
+    template_name = 'horarios/calinst_form.html'
+    success_url = reverse_lazy('calinst_list')
+
+class CalInstDeleteView(LoginRequiredMixin, DeleteView):
+    model = CalInst
+    template_name = 'horarios/calinst_confirm_delete.html'
+    success_url = reverse_lazy('calinst_list') 
+
+
+    #Vistas para el calendario de los ambientes
+class CalAmbListView(LoginRequiredMixin, ListView):
+    model = CalAmb
+    template_name = 'horarios/calamb_list.html'
+    context_object_name = 'calambs'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = CalAmbForm()
+        return context
+
+class CalAmbCreateView(LoginRequiredMixin, CreateView):
+    model = CalAmb
+    form_class = CalAmbForm
+    template_name = 'horarios/calamb_form.html'
+    success_url = reverse_lazy('calamb_list')
+
+class CalAmbUpdateView(LoginRequiredMixin, UpdateView):
+    model = CalAmb
+    form_class = CalAmbForm
+    template_name = 'horarios/calamb_form.html'
+    success_url = reverse_lazy('calamb_list')
+
+class CalAmbDeleteView(LoginRequiredMixin, DeleteView):
+    model = CalAmb
+    template_name = 'horarios/calamb_confirm_delete.html'
+    success_url = reverse_lazy('calamb_list')
+
 # Vista para el Login
 def login_view(request):
     if request.method == 'POST':
@@ -164,10 +223,6 @@ def login_view(request):
             error_message = "Credenciales inválidas o usuario no es administrador."
             return render(request, 'horarios/login.html', {'error_message': error_message})
     return render(request, 'horarios/login.html')
-
-@login_required
-def admin_dashboard(request):
-    return render(request, 'horarios/admin_dashboard.html')
 
 @login_required
 def admin_dashboard(request):
