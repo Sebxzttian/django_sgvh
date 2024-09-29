@@ -32,7 +32,11 @@ from .views import (
     CalAmbListView,
     CalAmbCreateView,
     CalAmbUpdateView,
-    CalAmbDeleteView
+    CalAmbDeleteView,
+    CalPFListView,
+    CalPFCreateView,
+    CalPFUpdateView,
+    CalPFDeleteView,
 )
 
 urlpatterns = [
@@ -88,4 +92,10 @@ urlpatterns = [
     path('calambs/create/', login_required(CalAmbCreateView.as_view()), name='calamb_create'),
     path('calambs/<int:pk>/edit/', login_required(CalAmbUpdateView.as_view()), name='calamb_edit'),
     path('calambs/<int:pk>/delete/', login_required(CalAmbDeleteView.as_view()), name='calamb_delete'),
+
+    # Calendario de Programa de formacion
+    path('calpfs/', login_required(CalPFListView.as_view()), name='calpf_list'),
+    path('calpfs/create/', login_required(CalPFCreateView.as_view()), name='calpf_create'),
+    path('calpfs/<int:pk>/edit/', login_required(CalPFUpdateView.as_view()), name='calpf_edit'),
+    path('calpfs/<int:pk>/delete/', login_required(CalPFDeleteView.as_view()), name='calpf_delete'),
 ]

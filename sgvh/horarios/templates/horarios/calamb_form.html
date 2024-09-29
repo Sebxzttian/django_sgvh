@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link type='text/css' href="{% static 'css/programa_formacion_form.css' %}" rel='stylesheet'>
-    <title>{% if object %}Editar Calendario del Instructor{% else %}Crear Nueva Formación{% endif %}</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,7 +24,7 @@
         <div class="card shadow-sm">
             <!-- Encabezado del formulario -->
             <div class="card-header bg-success text-white">
-                <h2 class="text-center mb-0">{% if object %}Editar Calendario del Instructor{% else %}Crear Nueva Formación{% endif %}</h2>
+                <h2 class="text-center mb-0">{% if object %}Editar Calendario del Ambiente{% else %}Crear Calendario del Ambiente{% endif %}</h2>
             </div>
             <!-- Cuerpo del formulario -->
             <div class="card-body">
@@ -58,7 +57,7 @@
                     <!-- Botones de acción -->
                     <div class="d-flex justify-content-end">
                         <button type="submit" class="btn btn-success me-2">Guardar</button>
-                        <a href="{% url 'calinst_list' %}" class="btn btn-secondary">Cancelar</a>
+                        <a href="{% url 'calamb_list' %}" class="btn btn-secondary">Cancelar</a>
                     </div>
                 </form>
             </div>

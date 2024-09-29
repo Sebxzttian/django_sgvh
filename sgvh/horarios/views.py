@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Administrador, Instructor, ProgramaFormacion, Ambiente, Competencia
 from calendarios.models import CalAmb, CalInst, CalPF
-from .forms import AdministradorForm, InstructorForm, ProgramaFormacionForm, AmbienteForm, CompetenciaForm, CalInstForm
+from .forms import AdministradorForm, InstructorForm, ProgramaFormacionForm, AmbienteForm, CompetenciaForm, CalInstForm, CalAmbForm, CalPFForm
 from datetime import date
 
 # Vistas para Administrador
@@ -209,6 +209,35 @@ class CalAmbDeleteView(LoginRequiredMixin, DeleteView):
     model = CalAmb
     template_name = 'horarios/calamb_confirm_delete.html'
     success_url = reverse_lazy('calamb_list')
+
+#Vistas para el calendario de los programas de formacion
+class CalPFListView(LoginRequiredMixin, ListView):
+    model = CalPF
+    template_name = 'horarios/calpf_list.html'
+    context_object_name = 'calpfs'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = CalAmbForm()
+        return context
+
+class CalPFCreateView(LoginRequiredMixin, CreateView):
+    model = CalPF
+    form_class = CalPFForm
+    template_name = 'horarios/calpf_form.html'
+    success_url = reverse_lazy('calpf_list')
+
+class CalPFUpdateView(LoginRequiredMixin, UpdateView):
+    model = CalPF
+    form_class = CalPFForm
+    template_name = 'horarios/calpf_form.html'
+    success_url = reverse_lazy('calpf_list')
+
+class CalPFDeleteView(LoginRequiredMixin, DeleteView):
+    model = CalPF
+    template_name = 'horarios/calpf_confirm_delete.html'
+    success_url = reverse_lazy('calpf_list')
+
 
 # Vista para el Login
 def login_view(request):

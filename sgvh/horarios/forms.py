@@ -95,3 +95,15 @@ class CalAmbForm(forms.ModelForm):
             'start': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
             'end': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
         }
+
+class CalPFForm(forms.ModelForm):
+    class Meta:
+        model = CalPF
+        fields = ['instructor', 'ambiente', 'competencia', 'start', 'end']
+        widgets = {
+            'instructor': forms.Select(attrs={'class': 'form-control'}),
+            'ambiente': forms.Select(attrs={'class': 'form-control'}),
+            'competencia': forms.Select(attrs={'class': 'form-control'}),
+            'start': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
+            'end': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
+        }
