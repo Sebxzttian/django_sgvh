@@ -10,8 +10,8 @@
     <title>Calendario de Ambientes</title>
     <!-- Enlace a Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Enlazar el archivo CSS personalizado --> <!-- Hacer el archivo css para este template (Ramírez) -->
-    <link type='text/css' href="{% static '' %}" rel='stylesheet'>
+    <!-- Enlazar el archivo CSS personalizado -->
+    <link type='text/css' href="{% static 'css/estilos_calendario.css' %}" rel='stylesheet'>
     <!-- Enlace a iconos de Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
@@ -50,7 +50,7 @@
               </a>
               
               <!-- Botón para eliminar con icono y modal -->
-              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ calamb.pk }}" title="Eliminar">
+              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-url="{% url 'calamb_delete' calamb.pk %}" data-name="{{ calamb.instructor }}" title="Eliminar">
                   <i class="bi bi-trash"></i>
               </button>
             </td>
@@ -68,7 +68,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              ¿Estás seguro de que quieres eliminar el Calendario <span id="calambtName"></span>?
+              ¿Estás seguro de que quieres eliminar el Calendario de <span id="calambtName">este ambiente</span>?
             </div>
             <div class="modal-footer">
               <form id="deleteForm" method="post">
@@ -88,18 +88,19 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 
+<!-- Script para el modal de confirmación de eliminación -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     var deleteLinks = document.querySelectorAll('[data-bs-toggle="modal"][data-bs-target="#confirmDeleteModal"]');
     var confirmDeleteForm = document.getElementById('deleteForm');
-    var calinstNameSpan = document.getElementById('calambtName'); 
+    var calambNameSpan = document.getElementById('calambtName'); 
 
     deleteLinks.forEach(function (link) {
       link.addEventListener('click', function () {
         var url = link.getAttribute('data-url');
-        var name = link.getAttribute('data-name');
+        var name = link.getAttribute('data-name') || 'este ambiente';
         
-        calinstNameSpan.textContent = name;
+        calambNameSpan.textContent = name;
         confirmDeleteForm.action = url;
       });
     });
