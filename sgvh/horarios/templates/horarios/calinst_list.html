@@ -38,9 +38,9 @@
         <tbody>
           {% for calinst in calinsts %}
           <tr>
-            <td>{{ calinst.programa }}</td>
-            <td>{{ calinst.ambiente }}</td>
-            <td>{{ calinst.competencia }}</td>
+            <td>{{ calinst.programa }} - {{calinst.codigo_programa}}</td>
+            <td>{{ calinst.ambiente }} - {{ calinst.codigo_ambiente }}</td>
+            <td>{{ calinst.competencia }} - {{calinst.norma_competencia}}</td>
             <td>{{ calinst.start|date:"Y-m-d H:i" }}</td>
             <td>{{ calinst.end|date:"Y-m-d H:i" }}</td>
             <td>

@@ -39,8 +39,8 @@
           {% for calamb in calambs %}
           <tr>
             <td>{{ calamb.instructor }}</td>
-            <td>{{ calamb.programa }}</td>
-            <td>{{ calamb.competencia }}</td>
+            <td>{{ calamb.programa }} - {{calamb.codigo_programa}}</td>
+            <td>{{ calamb.competencia }} - {{calamb.norma_competencia}}</td>
             <td>{{ calamb.start|date:"Y-m-d H:i" }}</td>
             <td>{{ calamb.end|date:"Y-m-d H:i" }}</td>
             <td>

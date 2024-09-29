@@ -39,8 +39,8 @@
           {% for calpf in calpfs %}
           <tr>
             <td>{{ calpf.instructor }}</td>
-            <td>{{ calpf.ambiente }}</td>
-            <td>{{ calpf.competencia }}</td>
+            <td>{{ calpf.ambiente }} - {{ calpf.codigo_ambiente }}</td>
+            <td>{{ calpf.competencia }} - {{ calpf.norma_competencia }}</td>
             <td>{{ calpf.start|date:"Y-m-d H:i" }}</td>
             <td>{{ calpf.end|date:"Y-m-d H:i" }}</td>
             <td>
