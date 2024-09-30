@@ -1,8 +1,8 @@
 # calendarios/views.py
 
 from django.shortcuts import render
-from .models import CalInst, CalPF, CalAmb  # Asegúrate de importar los modelos adecuados
-from horarios.models import Ambiente, ProgramaFormacion, Instructor  # Importa los modelos necesarios de 'horarios'
+from .models import Calendar
+from horarios.models import Ambiente, ProgramaFormacion, Instructor
 import json
 from django.http import JsonResponse
 
@@ -21,7 +21,7 @@ def calpf(request):
 
 #events
 def get_instructor_events(request, id):
-    events = CalInst.objects.filter(instructor_id=id)
+    events = Calendar.objects.filter(instructor_id=id)
     event_list = []
     for event in events:
         event_list.append({
@@ -37,7 +37,7 @@ def get_instructor_events(request, id):
     return JsonResponse(event_list, safe=False)
 
 def get_programa_events(request, id):
-    events = CalPF.objects.filter(programa_id=id)
+    events = Calendar.objects.filter(programa_id=id)
     event_list = []
     for event in events:
         event_list.append({
@@ -53,7 +53,7 @@ def get_programa_events(request, id):
     return JsonResponse(event_list, safe=False)
 
 def get_ambiente_events(request, id):
-    events = CalAmb.objects.filter(ambiente_id=id)
+    events = Calendar.objects.filter(ambiente_id=id)
     event_list = []
     for event in events:
         event_list.append({

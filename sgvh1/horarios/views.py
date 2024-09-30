@@ -5,8 +5,8 @@ from django.views.generic import ListView, UpdateView, DeleteView, CreateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Administrador, Instructor, ProgramaFormacion, Ambiente, Competencia
-from calendarios.models import CalAmb, CalInst, CalPF
-from .forms import AdministradorForm, InstructorForm, ProgramaFormacionForm, AmbienteForm, CompetenciaForm, CalInstForm, CalAmbForm, CalPFForm
+from calendarios.models import Calendar
+from .forms import AdministradorForm, InstructorForm, ProgramaFormacionForm, AmbienteForm, CompetenciaForm, CalInstForm, CalAmbForm, CalPFForm, CalendarForm
 from datetime import date
 
 # Vistas para Administrador
@@ -153,9 +153,37 @@ class CompetenciaDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('competencia_list')
 
 #VISTAS PARA LOS CALENDARIOS
+#Vistas para crear calendarios desde cero
+class CalendarListView(LoginRequiredMixin, ListView):
+    model = Calendar
+    template_name = 'horarios/calendar_list.html'
+    context_object_name = 'calendar'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = CalendarForm()
+        return context
+    
+class CalendarCreateView(LoginRequiredMixin, CreateView):
+    model = Calendar
+    form_class = CalendarForm
+    template_name = 'horarios/calendar_form.html'
+    success_url = reverse_lazy('calendar_list')
+
+class CalendarUpdateView(LoginRequiredMixin, UpdateView):
+    model = Calendar
+    form_class = CalendarForm
+    template_name = 'horarios/calendar_form.html'
+    success_url = reverse_lazy('calendar_list')
+
+class CalendarDeleteView(LoginRequiredMixin, DeleteView):
+    model = Calendar
+    template_name = 'horarios/calendar_confirm_delete.html'
+    success_url = reverse_lazy('calendar_list') 
+
 #Vistas para el calendario de los instructores
 class CalInstListView(LoginRequiredMixin, ListView):
-    model = CalInst
+    model = Calendar
     template_name = 'horarios/calinst_list.html'
     context_object_name = 'calinsts'
     
@@ -165,26 +193,26 @@ class CalInstListView(LoginRequiredMixin, ListView):
         return context
 
 class CalInstCreateView(LoginRequiredMixin, CreateView):
-    model = CalInst
+    model = Calendar
     form_class = CalInstForm
     template_name = 'horarios/calinst_form.html'
     success_url = reverse_lazy('calinst_list')
 
 class CalInstUpdateView(LoginRequiredMixin, UpdateView):
-    model = CalInst
+    model = Calendar
     form_class = CalInstForm
     template_name = 'horarios/calinst_form.html'
     success_url = reverse_lazy('calinst_list')
 
 class CalInstDeleteView(LoginRequiredMixin, DeleteView):
-    model = CalInst
+    model = Calendar
     template_name = 'horarios/calinst_confirm_delete.html'
     success_url = reverse_lazy('calinst_list') 
 
 
     #Vistas para el calendario de los ambientes
 class CalAmbListView(LoginRequiredMixin, ListView):
-    model = CalAmb
+    model = Calendar
     template_name = 'horarios/calamb_list.html'
     context_object_name = 'calambs'
     
@@ -194,25 +222,25 @@ class CalAmbListView(LoginRequiredMixin, ListView):
         return context
 
 class CalAmbCreateView(LoginRequiredMixin, CreateView):
-    model = CalAmb
+    model = Calendar
     form_class = CalAmbForm
     template_name = 'horarios/calamb_form.html'
     success_url = reverse_lazy('calamb_list')
 
 class CalAmbUpdateView(LoginRequiredMixin, UpdateView):
-    model = CalAmb
+    model = Calendar
     form_class = CalAmbForm
     template_name = 'horarios/calamb_form.html'
     success_url = reverse_lazy('calamb_list')
 
 class CalAmbDeleteView(LoginRequiredMixin, DeleteView):
-    model = CalAmb
+    model = Calendar
     template_name = 'horarios/calamb_confirm_delete.html'
     success_url = reverse_lazy('calamb_list')
 
 #Vistas para el calendario de los programas de formacion
 class CalPFListView(LoginRequiredMixin, ListView):
-    model = CalPF
+    model = Calendar
     template_name = 'horarios/calpf_list.html'
     context_object_name = 'calpfs'
     
@@ -222,19 +250,19 @@ class CalPFListView(LoginRequiredMixin, ListView):
         return context
 
 class CalPFCreateView(LoginRequiredMixin, CreateView):
-    model = CalPF
+    model = Calendar
     form_class = CalPFForm
     template_name = 'horarios/calpf_form.html'
     success_url = reverse_lazy('calpf_list')
 
 class CalPFUpdateView(LoginRequiredMixin, UpdateView):
-    model = CalPF
+    model = Calendar
     form_class = CalPFForm
     template_name = 'horarios/calpf_form.html'
     success_url = reverse_lazy('calpf_list')
 
 class CalPFDeleteView(LoginRequiredMixin, DeleteView):
-    model = CalPF
+    model = Calendar
     template_name = 'horarios/calpf_confirm_delete.html'
     success_url = reverse_lazy('calpf_list')
 

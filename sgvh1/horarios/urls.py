@@ -37,6 +37,10 @@ from .views import (
     CalPFCreateView,
     CalPFUpdateView,
     CalPFDeleteView,
+    CalendarListView,
+    CalendarCreateView,
+    CalendarUpdateView,
+    CalendarDeleteView
 )
 
 urlpatterns = [
@@ -98,4 +102,10 @@ urlpatterns = [
     path('calpfs/create/', login_required(CalPFCreateView.as_view()), name='calpf_create'),
     path('calpfs/<int:pk>/edit/', login_required(CalPFUpdateView.as_view()), name='calpf_edit'),
     path('calpfs/<int:pk>/delete/', login_required(CalPFDeleteView.as_view()), name='calpf_delete'),
+
+        # Calendarios
+    path('calendars/', login_required(CalendarListView.as_view()), name='calendar_list'),
+    path('calendars/create/', login_required(CalendarCreateView.as_view()), name='calendar_create'),
+    path('calendars/<int:pk>/edit/', login_required(CalendarUpdateView.as_view()), name='calendar_edit'),
+    path('calendars/<int:pk>/delete/', login_required(CalendarDeleteView.as_view()), name='calendar_delete'),
 ]

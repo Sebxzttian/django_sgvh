@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import Administrador, Instructor, ProgramaFormacion, Ambiente, Competencia
-from calendarios.models import CalInst, CalAmb, CalPF
+from calendarios.models import Calendar
 
 class AdministradorForm(UserCreationForm):
     password1 = forms.CharField(
@@ -72,38 +72,54 @@ class CompetenciaForm(forms.ModelForm):
             'resultado_aprendizaje': forms.Textarea(attrs={'class': 'form-control'}),
         }
 
+class CalendarForm(forms.ModelForm):
+    class Meta:
+        model = Calendar
+        fields = ['instructor', 'programa', 'ambiente', 'competencia', 'start', 'end']
+        widgets = {
+            'instructor': forms.Select(attrs={'class': 'form-control', 'required': 'true'}),
+            'programa': forms.Select(attrs={'class': 'form-control', 'required': 'true'}),
+            'ambiente': forms.Select(attrs={'class': 'form-control', 'required': 'true'}),
+            'competencia': forms.Select(attrs={'class': 'form-control'}),
+            'start': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local', 'required': 'true'}),
+            'end': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local', 'required': 'true'}),
+        }
+
 class CalInstForm(forms.ModelForm):
     class Meta:
-        model = CalInst
-        fields = ['programa', 'ambiente', 'competencia', 'start', 'end']
+        model = Calendar
+        fields = ['instructor', 'programa', 'ambiente', 'competencia', 'start', 'end']
         widgets = {
-            'programa': forms.Select(attrs={'class': 'form-control'}),
-            'ambiente': forms.Select(attrs={'class': 'form-control'}),
+            'instructor': forms.Select(attrs={'class': 'form-control', 'disabled': 'true', 'required': 'true'}),
+            'programa': forms.Select(attrs={'class': 'form-control', 'required': 'true'}),
+            'ambiente': forms.Select(attrs={'class': 'form-control', 'required': 'true'}),
             'competencia': forms.Select(attrs={'class': 'form-control'}),
-            'start': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
-            'end': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
+            'start': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local', 'required': 'true'}),
+            'end': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local', 'required': 'true'}),
         }
 
 class CalAmbForm(forms.ModelForm):
     class Meta:
-        model = CalAmb
-        fields = ['instructor', 'programa', 'competencia', 'start', 'end']
+        model = Calendar
+        fields = ['ambiente', 'instructor', 'programa', 'competencia', 'start', 'end']
         widgets = {
-            'instructor': forms.Select(attrs={'class': 'form-control'}),
-            'programa': forms.Select(attrs={'class': 'form-control'}),
-            'competencia': forms.Select(attrs={'class': 'form-control'}),
-            'start': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
-            'end': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
+            'ambiente': forms.Select(attrs={'class': 'form-control', 'disabled': 'true', 'required': 'true'}),
+            'instructor': forms.Select(attrs={'class': 'form-control', 'required': 'true'}),
+            'programa': forms.Select(attrs={'class': 'form-control', 'required': 'true'}),
+            'competencia': forms.Select(attrs={'class': 'form-control', 'required': 'true'}),
+            'start': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local', 'required': 'true'}),
+            'end': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local', 'required': 'true'}),
         }
 
 class CalPFForm(forms.ModelForm):
     class Meta:
-        model = CalPF
-        fields = ['instructor', 'ambiente', 'competencia', 'start', 'end']
+        model = Calendar
+        fields = ['programa', 'instructor', 'ambiente', 'competencia', 'start', 'end']
         widgets = {
-            'instructor': forms.Select(attrs={'class': 'form-control'}),
-            'ambiente': forms.Select(attrs={'class': 'form-control'}),
-            'competencia': forms.Select(attrs={'class': 'form-control'}),
-            'start': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
-            'end': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
+            'programa': forms.Select(attrs={'class': 'form-control', 'disabled': 'true', 'required': 'true'}),
+            'instructor': forms.Select(attrs={'class': 'form-control', 'required': 'true'}),
+            'ambiente': forms.Select(attrs={'class': 'form-control', 'required': 'true'}),
+            'competencia': forms.Select(attrs={'class': 'form-control', 'required': 'true'}),
+            'start': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local', 'required': 'true'}),
+            'end': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local', 'required': 'true'}),
         }
