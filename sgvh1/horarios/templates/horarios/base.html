@@ -63,16 +63,11 @@
                                 <i class="bi bi-award-fill"></i> Competencias
                             </a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="calendarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-calendar-fill"></i> Calendarios
+                        <li class="nav-item"></li>
+                            <a class="nav-link" href="{% url 'calendar_list' %}">
+                                <i class="bi bi-award-fill"></i> Calendarios
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="calendarDropdown">
-                                <li><a class="dropdown-item" href="{% url 'calinst_list' %}"><i class="bi bi-person-fill"></i> Calendario de Instructores</a></li>
-                                <li><a class="dropdown-item" href="{% url 'calamb_list' %}"><i class="bi bi-building"></i> Calendario de Ambientes</a></li>
-                                <li><a class="dropdown-item" href="{% url 'calpf_list' %}"><i class="bi bi-journal-bookmark-fill"></i> Calendario de Programas de Formación</a></li>
-                            </ul>
-                        </li>                                          
+                        </li>                                         
                     </ul>
                 </div>
             </nav>
