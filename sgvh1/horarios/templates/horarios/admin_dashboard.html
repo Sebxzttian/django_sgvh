@@ -45,30 +45,39 @@
         }
         .dashboard-header i {
             font-size: 4rem;
-            color: #28a745; /* Icono de color verde */
+            color: #28a745;
         }
         .card {
             border: none;
             box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
             transition: transform 0.2s;
+            height: 100%; /* Hacer que todas las tarjetas ocupen el 100% del contenedor */
         }
         .card:hover {
             transform: scale(1.05);
         }
+        .card-container {
+            height: 100%; /* El contenedor de la tarjeta también debe ocupar el 100% */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
         .card-icon {
             font-size: 4rem;
-            color: #28a745; /* Color verde */
+            color: #28a745;
         }
         .stats {
-            font-size: 4rem;
+            font-size: 3rem;
             font-weight: bold;
             color: #495057;
-            margin-top: 20px;
+            margin-top: 10px;
         }
         .card-title {
             font-weight: bold;
-            font-size: 22px;
+            font-size: 20px;
             color: #495057;
+            margin-top: 10px;
+            text-align: center;
         }
     </style>
 </head>
@@ -76,47 +85,42 @@
     <div class="container mt-5">
         <header class="dashboard-header mb-4">
             <div class="d-flex align-items-center">
-                <!-- Icono de administración -->
-                <i class="bi bi-person-circle"></i> <!-- Cambiado a verde -->
-                <!-- Mensaje de bienvenida con estilo mejorado -->
+                <i class="bi bi-person-circle"></i>
                 <h1 class="ms-3">Bienvenido, {{ admin_name }}</h1>
             </div>
-            <!-- Fecha actual -->
             <div class="text-muted">
                 <p>{{ current_date|date:"D d M Y" }}</p>
             </div>
         </header>
 
-        <!-- Sección de estadísticas (solo mostrando las tarjetas con contadores) -->
-        <div class="row mb-4">
-            <div class="col-md-4">
-                <div class="card text-center p-4">
+        <!-- Sección de estadísticas (tarjetas organizadas) -->
+        <div class="row mb-4 text-center">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card p-4 card-container">
                     <i class="bi bi-shield-lock-fill card-icon"></i>
-                    <div class="mt-3">
-                        <!-- Mostrando el número real de administradores -->
-                        <p class="stats">{{ total_administradores }}</p>
-                        <p class="card-title">Administradores</p>
-                    </div>
+                    <p class="stats">{{ total_administradores }}</p>
+                    <p class="card-title">Administradores</p>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card text-center p-4">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card p-4 card-container">
                     <i class="bi bi-people-fill card-icon"></i>
-                    <div class="mt-3">
-                        <!-- Mostrando el número real de instructores -->
-                        <p class="stats">{{ total_instructores }}</p>
-                        <p class="card-title">Instructores</p>
-                    </div>
+                    <p class="stats">{{ total_instructores }}</p>
+                    <p class="card-title">Instructores</p>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card text-center p-4">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card p-4 card-container">
                     <i class="bi bi-book-fill card-icon"></i>
-                    <div class="mt-3">
-                        <!-- Mostrando el número real de programas de formación -->
-                        <p class="stats">{{ total_programas }}</p>
-                        <p class="card-title">Programas de Formación</p>
-                    </div>
+                    <p class="stats">{{ total_programas }}</p>
+                    <p class="card-title">Programas de Formación</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card p-4 card-container">
+                    <i class="bi bi-journal-bookmark-fill card-icon"></i>
+                    <p class="stats">{{ total_competencias }}</p>
+                    <p class="card-title">Competencias</p>
                 </div>
             </div>
         </div>

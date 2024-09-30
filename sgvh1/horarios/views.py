@@ -290,7 +290,8 @@ def admin_dashboard(request):
     total_administradores = Administrador.objects.count()
     total_instructores = Instructor.objects.count()
     total_programas = ProgramaFormacion.objects.count()
-    
+    total_competencias = Competencia.objects.count()
+
     current_date = date.today()
 
     # Pasar los datos al template
@@ -299,6 +300,7 @@ def admin_dashboard(request):
         'total_administradores': total_administradores,
         'total_instructores': total_instructores,
         'total_programas': total_programas,
+        'total_competencias': total_competencias,
         'current_date': current_date
     })
    
