@@ -25,4 +25,5 @@ urlpatterns = [
     path('', lambda request: redirect('login'), name='home'),  # Redirige la página principal al login
     path('', include('horarios.urls')),
     path('calendarios/', include('calendarios.urls')),
+    path('api/', include('calendarios.api_urls')), 
 ]
