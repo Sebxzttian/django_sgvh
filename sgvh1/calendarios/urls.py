@@ -1,15 +1,11 @@
 # calendarios/urls.py
 
 from django.urls import path
-from .views import calinst, calamb, calpf, get_instructor_events, get_programa_events, get_ambiente_events
+from .views import cal_eventos, get_all_events
 
 urlpatterns = [
-    path('calinst/', calinst, name='calinst'),
-    path('calamb/', calamb, name='calamb'),
-    path('calpf/', calpf, name='calpf'),
+    path('cal_eventos/', cal_eventos, name='cal_eventos'),
     
-    # Rutas para obtener eventos
-    path('get_instructor_events/<int:id>/', get_instructor_events, name='get_instructor_events'),
-    path('get_programa_events/<int:id>/', get_programa_events, name='get_programa_events'),
-    path('get_ambiente_events/<int:id>/', get_ambiente_events, name='get_ambiente_events'),
+    # Ruta para obtener todos los eventos
+    path('get_all_events/', get_all_events, name='get_all_events'),
 ]

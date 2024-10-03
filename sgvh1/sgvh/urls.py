@@ -14,16 +14,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
-from calendarios.views import calinst, calamb, calpf, get_instructor_events, get_programa_events, get_ambiente_events
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', lambda request: redirect('login'), name='home'),  # Redirige la página principal al login
-    path('', include('horarios.urls')),
-    path('calendarios/', include('calendarios.urls')),
-    path('api/', include('calendarios.api_urls')), 
+    path('', include('horarios.urls')),  # Incluye las URLs de la aplicación 'horarios'
+    path('calendarios/', include('calendarios.urls')),  # Incluye las URLs de la aplicación 'calendarios'
+    path('api/', include('calendarios.api_urls')),  # Incluye las URLs de la API de 'calendarios'
 ]

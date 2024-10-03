@@ -2,68 +2,23 @@
 
 from django.shortcuts import render
 from .models import Calendar
-from horarios.models import Ambiente, ProgramaFormacion, Instructor
-import json
 from django.http import JsonResponse
 
-def calinst(request):
-    instructores = Instructor.objects.all()  # Obtener todos los instructores
-    return render(request, 'calendarios/calinst.html', {'instructores': instructores})
+def cal_eventos(request):
+    # Renderiza la plantilla principal del calendario
+    return render(request, 'calendarios/cal_eventos.html')
 
-def calamb(request):
-    ambientes = Ambiente.objects.all()  # Obtener todos los ambientes
-    return render(request, 'calendarios/calamb.html', {'ambientes': ambientes})
-
-def calpf(request):
-    programas = ProgramaFormacion.objects.all()  # Obtener todos los programas
-    return render(request, 'calendarios/calpf.html', {'programas': programas})
-
-
-#events
-def get_instructor_events(request, id):
-    events = Calendar.objects.filter(instructor_id=id)
+def get_all_events(request):
+    events = Calendar.objects.all()
     event_list = []
     for event in events:
         event_list.append({
-            'start': event.fecha_inicio.isoformat(),
-            'end': event.fecha_fin.isoformat(),
-            'programa': event.programa.nombre_programa,
-            'codigo_programa': event.programa.codigo_programa,
-            'ambiente': event.ambiente.nombre_ambiente,
-            'codigo_ambiente': event.ambiente.codigo_ambiente,
-            'competencia': event.competencia.nombre,
-            'norma_competencia': event.competencia.codigo_norma,
-        })
-    return JsonResponse(event_list, safe=False)
-
-def get_programa_events(request, id):
-    events = Calendar.objects.filter(programa_id=id)
-    event_list = []
-    for event in events:
-        event_list.append({
-            'start': event.fecha_inicio.isoformat(),
-            'end': event.fecha_fin.isoformat(),
-            'instructor': event.instructor.nombres,
-            'apellido_instructor': event.instructor.apellidos,
-            'ambiente': event.ambiente.nombre_ambiente,
-            'codigo_ambiente': event.ambiente.codigo_ambiente,
-            'competencia': event.competencia.nombre,
-            'norma_competencia': event.competencia.codigo_norma,
-        })
-    return JsonResponse(event_list, safe=False)
-
-def get_ambiente_events(request, id):
-    events = Calendar.objects.filter(ambiente_id=id)
-    event_list = []
-    for event in events:
-        event_list.append({
-            'start': event.fecha_inicio.isoformat(),
-            'end': event.fecha_fin.isoformat(),
-            'instructor': event.instructor.nombres,
-            'apellido_instructor': event.instructor.apellidos,
-            'programa': event.programa.nombre_programa,
-            'codigo_programa': event.programa.codigo_programa,
-            'competencia': event.competencia.nombre,
-            'norma_competencia': event.competencia.codigo_norma,
+            'start': event.start.isoformat(),
+            'end': event.end.isoformat(),
+            'instructor': event.nombres_instructor,
+            'programa': event.nombre_programa,
+            'ambiente': event.nombre_ambiente,
+            'competencia': event.nombre_competencia,
+            'norma_competencia': event.norma_competencia,
         })
     return JsonResponse(event_list, safe=False)
