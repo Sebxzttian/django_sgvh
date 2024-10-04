@@ -335,3 +335,41 @@ def get_all_events(request):
         })
    
     return JsonResponse(events, safe=False)
+
+#para que se puedan cargar instructores con un archivo csv
+from django.shortcuts import redirect
+from django.contrib import messages
+import csv
+from .models import Instructor
+
+def upload_instructors_csv(request):
+    if request.method == 'POST':
+        csv_file = request.FILES['file']
+        
+        if not csv_file.name.endswith('.csv'):
+            messages.error(request, 'El archivo debe ser en formato CSV.')
+            return redirect('instructor_list')
+
+        decoded_file = csv_file.read().decode('utf-8').splitlines()
+        reader = csv.reader(decoded_file)
+        next(reader)  # Ignora el encabezado
+
+        for row in reader:
+            if len(row) < 6:
+                messages.error(request, 'Faltan datos en una de las filas.')
+                continue
+            
+            # Crea el instructor
+            Instructor.objects.create(
+                nombres=row[0],
+                apellidos=row[1],
+                correo_institucional=row[2],
+                numero_celular=row[3],
+                numero_cedula=row[4],
+                competencias_imparte=row[5],
+            )
+
+        messages.success(request, 'Instructores cargados correctamente.')
+        return redirect('instructor_list')
+
+    return redirect('instructor_list')  # En caso de que no sea un POST

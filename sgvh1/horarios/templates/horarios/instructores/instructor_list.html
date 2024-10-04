@@ -21,9 +21,30 @@
         <div class="col">
             <h1>Instructores</h1>
 
+            <!-- Mensajes de Django -->
+            {% if messages %}
+                <div class="mb-3">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Botón para crear un nuevo instructor -->
             <a href="{% url 'instructor_create' %}" class="btn btn-primary mb-3">Crear Nuevo Instructor</a>
 
-            <table class="table table-striped">
+            <!-- Formulario para subir archivo CSV -->
+            <form method="post" enctype="multipart/form-data" action="{% url 'upload_instructors_csv' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="csvFile" class="form-label">Subir archivo CSV de Instructores</label>
+                    <input type="file" name="file" class="form-control" id="csvFile" required>
+                </div>
+                <button type="submit" class="btn btn-success">Cargar CSV</button>
+            </form>
+
+            <!-- Tabla de instructores -->
+            <table class="table table-striped mt-3">
                 <thead>
                     <tr>
                         <th>Nombres</th>

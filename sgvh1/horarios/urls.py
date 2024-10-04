@@ -2,6 +2,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth.decorators import login_required
+from . import views
 from .views import (
     login_view, 
     admin_dashboard, 
@@ -41,7 +42,8 @@ from .views import (
     CalendarCreateView,
     CalendarUpdateView,
     CalendarDeleteView,
-    get_all_events
+    get_all_events,
+    upload_instructors_csv
 )
 
 urlpatterns = [
@@ -112,4 +114,7 @@ urlpatterns = [
 
     # Obtener todos los eventos
     path('eventos/', get_all_events, name='get_all_events'),
+
+    # cargar instructores por medio de un archivo
+    path('instructores/upload/', upload_instructors_csv, name='upload_instructors_csv'),  # Ase
 ]
