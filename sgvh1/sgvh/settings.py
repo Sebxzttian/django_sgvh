@@ -62,7 +62,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'sgvh_db',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': 'diego.192',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -96,6 +96,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'horarios/static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'calendarios/static')]
 
 # Configuración de Autenticación Personalizada
 AUTH_USER_MODEL = 'horarios.Administrador'  # Modelo personalizado para usuarios (administradores)

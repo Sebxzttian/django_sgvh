@@ -22,10 +22,10 @@ def generar_eventos_recurrentes(event):
             dia_recurrencia = dias_semana[dia.lower()]
             if dia_semana_actual == dia_recurrencia:
                 eventos_recurrentes.append({
-                    'start': datetime.datetime.combine(fecha_actual, event.start.time()).isoformat(),
-                    'end': datetime.datetime.combine(fecha_actual, event.end.time()).isoformat(),
+                    'title': f"{event.codigo_programa} - {event.nombre_programa}",
                     'instructor': event.nombres_instructor,
-                    'programa': f"{event.codigo_programa} - {event.nombre_programa}",
+                    'startDate': datetime.datetime.combine(fecha_actual, event.start.time()).isoformat(),
+                    'endDate': datetime.datetime.combine(fecha_actual, event.end.time()).isoformat(),
                     'ambiente': f"{event.codigo_ambiente} - {event.nombre_ambiente}",
                     'competencia':  event.nombre_competencia,
                     'norma_competencia': event.norma_competencia,
@@ -42,4 +42,9 @@ def get_all_events(request):
         eventos_recurrentes = generar_eventos_recurrentes(event)
         event_list.extend(eventos_recurrentes)
 
-    return JsonResponse(event_list, safe=False)
+    # Envolver los eventos en el formato solicitado
+    response_data = {
+        "events": event_list
+    }
+
+    return JsonResponse(response_data, safe=False)

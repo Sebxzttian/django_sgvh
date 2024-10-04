@@ -1,0 +1,11 @@
+#calendar {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+#calendar a {
+  color: #000;
+  text-decoration: none;
+}
