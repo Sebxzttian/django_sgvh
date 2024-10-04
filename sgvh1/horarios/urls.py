@@ -40,7 +40,8 @@ from .views import (
     CalendarListView,
     CalendarCreateView,
     CalendarUpdateView,
-    CalendarDeleteView
+    CalendarDeleteView,
+    get_all_events
 )
 
 urlpatterns = [
@@ -108,4 +109,7 @@ urlpatterns = [
     path('calendars/create/', login_required(CalendarCreateView.as_view()), name='calendar_create'),
     path('calendars/<int:pk>/edit/', login_required(CalendarUpdateView.as_view()), name='calendar_edit'),
     path('calendars/<int:pk>/delete/', login_required(CalendarDeleteView.as_view()), name='calendar_delete'),
+
+    # Obtener todos los eventos
+    path('eventos/', get_all_events, name='get_all_events'),
 ]

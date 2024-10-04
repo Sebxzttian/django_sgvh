@@ -73,9 +73,26 @@ class CompetenciaForm(forms.ModelForm):
         }
 
 class CalendarForm(forms.ModelForm):
+    DIAS_SEMANA = [
+        ('lunes', 'Lunes'),
+        ('martes', 'Martes'),
+        ('miércoles', 'Miércoles'),
+        ('jueves', 'Jueves'),
+        ('viernes', 'Viernes'),
+        ('sábado', 'Sábado'),
+        ('domingo', 'Domingo'),
+    ]
+    
+    dias_recurrencia = forms.MultipleChoiceField(
+        choices=DIAS_SEMANA,
+        widget=forms.CheckboxSelectMultiple(),
+        required=False,  # No es obligatorio
+        label='Días de Recurrencia',
+    )
+
     class Meta:
         model = Calendar
-        fields = ['instructor', 'programa', 'ambiente', 'competencia', 'start', 'end']
+        fields = ['instructor', 'programa', 'ambiente', 'competencia', 'start', 'end', 'dias_recurrencia']
         widgets = {
             'instructor': forms.Select(attrs={'class': 'form-control', 'required': 'true'}),
             'programa': forms.Select(attrs={'class': 'form-control', 'required': 'true'}),
@@ -86,9 +103,26 @@ class CalendarForm(forms.ModelForm):
         }
 
 class CalInstForm(forms.ModelForm):
+    DIAS_SEMANA = [
+        ('lunes', 'Lunes'),
+        ('martes', 'Martes'),
+        ('miércoles', 'Miércoles'),
+        ('jueves', 'Jueves'),
+        ('viernes', 'Viernes'),
+        ('sábado', 'Sábado'),
+        ('domingo', 'Domingo'),
+    ]
+    
+    dias_recurrencia = forms.MultipleChoiceField(
+        choices=DIAS_SEMANA,
+        widget=forms.CheckboxSelectMultiple(),
+        required=False,  # No es obligatorio
+        label='Días de Recurrencia',
+    )
+
     class Meta:
         model = Calendar
-        fields = ['instructor', 'programa', 'ambiente', 'competencia', 'start', 'end']
+        fields = ['instructor', 'programa', 'ambiente', 'competencia', 'start', 'end', 'dias_recurrencia']
         widgets = {
             'instructor': forms.Select(attrs={'class': 'form-control', 'disabled': 'true', 'required': 'true'}),
             'programa': forms.Select(attrs={'class': 'form-control', 'required': 'true'}),
@@ -99,9 +133,26 @@ class CalInstForm(forms.ModelForm):
         }
 
 class CalAmbForm(forms.ModelForm):
+    DIAS_SEMANA = [
+        ('lunes', 'Lunes'),
+        ('martes', 'Martes'),
+        ('miércoles', 'Miércoles'),
+        ('jueves', 'Jueves'),
+        ('viernes', 'Viernes'),
+        ('sábado', 'Sábado'),
+        ('domingo', 'Domingo'),
+    ]
+    
+    dias_recurrencia = forms.MultipleChoiceField(
+        choices=DIAS_SEMANA,
+        widget=forms.CheckboxSelectMultiple(),
+        required=False,  # No es obligatorio
+        label='Días de Recurrencia',
+    )
+
     class Meta:
         model = Calendar
-        fields = ['ambiente', 'instructor', 'programa', 'competencia', 'start', 'end']
+        fields = ['ambiente', 'instructor', 'programa', 'competencia', 'start', 'end', 'dias_recurrencia']
         widgets = {
             'ambiente': forms.Select(attrs={'class': 'form-control', 'disabled': 'true', 'required': 'true'}),
             'instructor': forms.Select(attrs={'class': 'form-control', 'required': 'true'}),
@@ -112,9 +163,26 @@ class CalAmbForm(forms.ModelForm):
         }
 
 class CalPFForm(forms.ModelForm):
+    DIAS_SEMANA = [
+        ('lunes', 'Lunes'),
+        ('martes', 'Martes'),
+        ('miércoles', 'Miércoles'),
+        ('jueves', 'Jueves'),
+        ('viernes', 'Viernes'),
+        ('sábado', 'Sábado'),
+        ('domingo', 'Domingo'),
+    ]
+    
+    dias_recurrencia = forms.MultipleChoiceField(
+        choices=DIAS_SEMANA,
+        widget=forms.CheckboxSelectMultiple(),
+        required=False,  # No es obligatorio
+        label='Días de Recurrencia',
+    )
+
     class Meta:
         model = Calendar
-        fields = ['programa', 'instructor', 'ambiente', 'competencia', 'start', 'end']
+        fields = ['programa', 'instructor', 'ambiente', 'competencia', 'start', 'end', 'dias_recurrencia']
         widgets = {
             'programa': forms.Select(attrs={'class': 'form-control', 'disabled': 'true', 'required': 'true'}),
             'instructor': forms.Select(attrs={'class': 'form-control', 'required': 'true'}),
@@ -123,3 +191,5 @@ class CalPFForm(forms.ModelForm):
             'start': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local', 'required': 'true'}),
             'end': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local', 'required': 'true'}),
         }
+
+        

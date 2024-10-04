@@ -12,13 +12,9 @@
     <title>{% if object %}Editar Calendario del Programa de instructor{% else %}Crear Calendario de instructor{% endif %}</title>
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     
-    <!-- Flatpickr CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     
-    <!-- Custom CSS -->
-    <link type='text/css' href="{% static 'css/programa_formacion_form.css' %}" rel='stylesheet'>
 </head>
 <body>
     <div class="container mt-5">
@@ -30,7 +26,7 @@
             <!-- Cuerpo del formulario -->
             <div class="card-body">
                 <form method="post" class="needs-validation" novalidate>
-                    {% csrf_token %}
+                    {% csrf_token %} 
 
                     <!-- Muestra errores no relacionados con campos específicos -->
                     <div class="mb-3">
@@ -44,8 +40,12 @@
                                 <!-- Etiqueta del campo -->
                                 <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
                                 
-                                <!-- Campo del formulario con clase form-control -->
-                                {{ field|add_class:"form-control" }}
+                                <!-- Campo del formulario con clase form-control solo si no es checkbox -->
+                                {% if field.field.widget|add_class:"form-control" != "CheckboxInput" %}
+                                    {{ field|add_class:"form-control" }}
+                                {% else %}
+                                    {{ field }}  <!-- Renderiza el checkbox sin cambios -->
+                                {% endif %}
                                 
                                 <!-- Mensajes de error del campo -->
                                 <div class="invalid-feedback">
@@ -54,6 +54,9 @@
                             </div>
                         {% endfor %}
                     </div>
+
+                    
+                    
 
                     <!-- Botones de acción -->
                     <div class="d-flex justify-content-end">
@@ -66,22 +69,9 @@
     </div>
 
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Flatpickr JS -->
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Configuración de Flatpickr para fechas de inicio y fin -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            flatpickr("#id_fecha_inicio", {
-                dateFormat: "Y-m-d",
-            });
-            flatpickr("#id_fecha_fin", {
-                dateFormat: "Y-m-d",
-            });
-        });
-    </script>
 </body>
 </html>
 {% endblock content %}

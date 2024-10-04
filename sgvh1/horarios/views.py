@@ -8,11 +8,13 @@ from .models import Administrador, Instructor, ProgramaFormacion, Ambiente, Comp
 from calendarios.models import Calendar
 from .forms import AdministradorForm, InstructorForm, ProgramaFormacionForm, AmbienteForm, CompetenciaForm, CalInstForm, CalAmbForm, CalPFForm, CalendarForm
 from datetime import date
+from django.http import JsonResponse  # Importar JsonResponse
+
 
 # Vistas para Administrador
 class AdministradorListView(LoginRequiredMixin, ListView):
     model = Administrador
-    template_name = 'horarios/administrador_list.html'
+    template_name = 'horarios/administradores/administrador_list.html'
     context_object_name = 'administradores'
     
     def get_context_data(self, **kwargs):
@@ -23,27 +25,27 @@ class AdministradorListView(LoginRequiredMixin, ListView):
 class AdministradorCreateView(LoginRequiredMixin, CreateView):
     model = Administrador
     form_class = AdministradorForm
-    template_name = 'horarios/administrador_form.html'
+    template_name = 'horarios/administradores/administrador_form.html'
     success_url = reverse_lazy('administrador_list')
 
 
 class AdministradorUpdateView(LoginRequiredMixin, UpdateView):
     model = Administrador
     form_class = AdministradorForm
-    template_name = 'horarios/administrador_form.html'
+    template_name = 'horarios/administradores/administrador_form.html'
     success_url = reverse_lazy('administrador_list')
 
 
 class AdministradorDeleteView(LoginRequiredMixin, DeleteView):
     model = Administrador
-    template_name = 'horarios/administrador_confirm_delete.html'
+    template_name = 'horarios/administradores/administrador_confirm_delete.html'
     success_url = reverse_lazy('administrador_list')
 
 
 # Vistas para Instructor
 class InstructorListView(LoginRequiredMixin, ListView):
     model = Instructor
-    template_name = 'horarios/instructor_list.html'
+    template_name = 'horarios/instructores/instructor_list.html'
     context_object_name = 'instructores'
     
     def get_context_data(self, **kwargs):
@@ -54,24 +56,24 @@ class InstructorListView(LoginRequiredMixin, ListView):
 class InstructorCreateView(LoginRequiredMixin, CreateView):
     model = Instructor
     form_class = InstructorForm
-    template_name = 'horarios/instructor_form.html'
+    template_name = 'horarios/instructores/instructor_form.html'
     success_url = reverse_lazy('instructor_list')
 
 class InstructorUpdateView(LoginRequiredMixin, UpdateView):
     model = Instructor
     form_class = InstructorForm
-    template_name = 'horarios/instructor_form.html'
+    template_name = 'horarios/instructores/instructor_form.html'
     success_url = reverse_lazy('instructor_list')
 
 class InstructorDeleteView(LoginRequiredMixin, DeleteView):
     model = Instructor
-    template_name = 'horarios/instructor_confirm_delete.html'
+    template_name = 'horarios/instructores/instructor_confirm_delete.html'
     success_url = reverse_lazy('instructor_list')
 
 # Vistas para ProgramaFormacion
 class ProgramaFormacionListView(LoginRequiredMixin, ListView):
     model = ProgramaFormacion
-    template_name = 'horarios/programa_formacion_list.html'
+    template_name = 'horarios/programasformacion/programa_formacion_list.html'
     context_object_name = 'programas'
     
     def get_context_data(self, **kwargs):
@@ -82,24 +84,24 @@ class ProgramaFormacionListView(LoginRequiredMixin, ListView):
 class ProgramaFormacionCreateView(LoginRequiredMixin, CreateView):
     model = ProgramaFormacion
     form_class = ProgramaFormacionForm
-    template_name = 'horarios/programa_formacion_form.html'
+    template_name = 'horarios/programasformacion/programa_formacion_form.html'
     success_url = reverse_lazy('programa_formacion_list')
 
 class ProgramaFormacionUpdateView(LoginRequiredMixin, UpdateView):
     model = ProgramaFormacion
     form_class = ProgramaFormacionForm
-    template_name = 'horarios/programa_formacion_form.html'
+    template_name = 'horarios/programasformacion/programa_formacion_form.html'
     success_url = reverse_lazy('programa_formacion_list')
 
 class ProgramaFormacionDeleteView(LoginRequiredMixin, DeleteView):
     model = ProgramaFormacion
-    template_name = 'horarios/programa_formacion_confirm_delete.html'
+    template_name = 'horarios/programasformacion/programa_formacion_confirm_delete.html'
     success_url = reverse_lazy('programa_formacion_list')
 
 # Vistas para Ambiente
 class AmbienteListView(LoginRequiredMixin, ListView):
     model = Ambiente
-    template_name = 'horarios/ambiente_list.html'
+    template_name = 'horarios/ambientes/ambiente_list.html'
     context_object_name = 'ambientes'
     
     def get_context_data(self, **kwargs):
@@ -110,24 +112,24 @@ class AmbienteListView(LoginRequiredMixin, ListView):
 class AmbienteCreateView(LoginRequiredMixin, CreateView):
     model = Ambiente
     form_class = AmbienteForm
-    template_name = 'horarios/ambiente_form.html'
+    template_name = 'horarios/ambientes/ambiente_form.html'
     success_url = reverse_lazy('ambiente_list')
 
 class AmbienteUpdateView(LoginRequiredMixin, UpdateView):
     model = Ambiente
     form_class = AmbienteForm
-    template_name = 'horarios/ambiente_form.html'
+    template_name = 'horarios/ambientes/ambiente_form.html'
     success_url = reverse_lazy('ambiente_list')
 
 class AmbienteDeleteView(LoginRequiredMixin, DeleteView):
     model = Ambiente
-    template_name = 'horarios/ambiente_confirm_delete.html'
+    template_name = 'horarios/ambientes/ambiente_confirm_delete.html'
     success_url = reverse_lazy('ambiente_list')
 
 # Vistas para Competencia
 class CompetenciaListView(LoginRequiredMixin, ListView):
     model = Competencia
-    template_name = 'horarios/competencia_list.html'
+    template_name = 'horarios/competencias/competencia_list.html'
     context_object_name = 'competencias'
     
     def get_context_data(self, **kwargs):
@@ -138,25 +140,25 @@ class CompetenciaListView(LoginRequiredMixin, ListView):
 class CompetenciaCreateView(LoginRequiredMixin, CreateView):
     model = Competencia
     form_class = CompetenciaForm
-    template_name = 'horarios/competencia_form.html'
+    template_name = 'horarios/competencias/competencia_form.html'
     success_url = reverse_lazy('competencia_list')
 
 class CompetenciaUpdateView(LoginRequiredMixin, UpdateView):
     model = Competencia
     form_class = CompetenciaForm
-    template_name = 'horarios/competencia_form.html'
+    template_name = 'horarios/competencias/competencia_form.html'
     success_url = reverse_lazy('competencia_list')
 
 class CompetenciaDeleteView(LoginRequiredMixin, DeleteView):
     model = Competencia
-    template_name = 'horarios/competencia_confirm_delete.html'
+    template_name = 'horarios/competencias/competencia_confirm_delete.html'
     success_url = reverse_lazy('competencia_list')
 
 #VISTAS PARA LOS CALENDARIOS
 #Vistas para crear calendarios desde cero
 class CalendarListView(LoginRequiredMixin, ListView):
     model = Calendar
-    template_name = 'horarios/calendar_list.html'
+    template_name = 'horarios/calendar/calendar_list.html'
     context_object_name = 'calendar'
 
     def get_context_data(self, **kwargs):
@@ -167,24 +169,24 @@ class CalendarListView(LoginRequiredMixin, ListView):
 class CalendarCreateView(LoginRequiredMixin, CreateView):
     model = Calendar
     form_class = CalendarForm
-    template_name = 'horarios/calendar_form.html'
+    template_name = 'horarios/calendar/calendar_form.html'
     success_url = reverse_lazy('calendar_list')
 
 class CalendarUpdateView(LoginRequiredMixin, UpdateView):
     model = Calendar
     form_class = CalendarForm
-    template_name = 'horarios/calendar_form.html'
+    template_name = 'horarios/calendar/calendar_form.html'
     success_url = reverse_lazy('calendar_list')
 
 class CalendarDeleteView(LoginRequiredMixin, DeleteView):
     model = Calendar
-    template_name = 'horarios/calendar_confirm_delete.html'
+    template_name = 'horarios/calendar/calendar_confirm_delete.html'
     success_url = reverse_lazy('calendar_list') 
 
 #Vistas para el calendario de los instructores
 class CalInstListView(LoginRequiredMixin, ListView):
     model = Calendar
-    template_name = 'horarios/calinst_list.html'
+    template_name = 'horarios/calinst/calinst_list.html'
     context_object_name = 'calinsts'
     
     def get_context_data(self, **kwargs):
@@ -195,25 +197,25 @@ class CalInstListView(LoginRequiredMixin, ListView):
 class CalInstCreateView(LoginRequiredMixin, CreateView):
     model = Calendar
     form_class = CalInstForm
-    template_name = 'horarios/calinst_form.html'
+    template_name = 'horarios/calinst/calinst_form.html'
     success_url = reverse_lazy('calinst_list')
 
 class CalInstUpdateView(LoginRequiredMixin, UpdateView):
     model = Calendar
     form_class = CalInstForm
-    template_name = 'horarios/calinst_form.html'
+    template_name = 'horarios/calinst/calinst_form.html'
     success_url = reverse_lazy('calinst_list')
 
 class CalInstDeleteView(LoginRequiredMixin, DeleteView):
     model = Calendar
-    template_name = 'horarios/calinst_confirm_delete.html'
+    template_name = 'horarios/calinst/calinst_confirm_delete.html'
     success_url = reverse_lazy('calinst_list') 
 
 
     #Vistas para el calendario de los ambientes
 class CalAmbListView(LoginRequiredMixin, ListView):
     model = Calendar
-    template_name = 'horarios/calamb_list.html'
+    template_name = 'horarios/calamb/calamb_list.html'
     context_object_name = 'calambs'
     
     def get_context_data(self, **kwargs):
@@ -224,24 +226,24 @@ class CalAmbListView(LoginRequiredMixin, ListView):
 class CalAmbCreateView(LoginRequiredMixin, CreateView):
     model = Calendar
     form_class = CalAmbForm
-    template_name = 'horarios/calamb_form.html'
+    template_name = 'horarios/calamb/calamb_form.html'
     success_url = reverse_lazy('calamb_list')
 
 class CalAmbUpdateView(LoginRequiredMixin, UpdateView):
     model = Calendar
     form_class = CalAmbForm
-    template_name = 'horarios/calamb_form.html'
+    template_name = 'horarios/calamb/calamb_form.html'
     success_url = reverse_lazy('calamb_list')
 
 class CalAmbDeleteView(LoginRequiredMixin, DeleteView):
     model = Calendar
-    template_name = 'horarios/calamb_confirm_delete.html'
+    template_name = 'horarios/calamb/calamb_confirm_delete.html'
     success_url = reverse_lazy('calamb_list')
 
 #Vistas para el calendario de los programas de formacion
 class CalPFListView(LoginRequiredMixin, ListView):
     model = Calendar
-    template_name = 'horarios/calpf_list.html'
+    template_name = 'horarios/programasformacion/calpf_list.html'
     context_object_name = 'calpfs'
     
     def get_context_data(self, **kwargs):
@@ -252,18 +254,18 @@ class CalPFListView(LoginRequiredMixin, ListView):
 class CalPFCreateView(LoginRequiredMixin, CreateView):
     model = Calendar
     form_class = CalPFForm
-    template_name = 'horarios/calpf_form.html'
+    template_name = 'horarios/programasformacion/calpf_form.html'
     success_url = reverse_lazy('calpf_list')
 
 class CalPFUpdateView(LoginRequiredMixin, UpdateView):
     model = Calendar
     form_class = CalPFForm
-    template_name = 'horarios/calpf_form.html'
+    template_name = 'horarios/programasformacion/calpf_form.html'
     success_url = reverse_lazy('calpf_list')
 
 class CalPFDeleteView(LoginRequiredMixin, DeleteView):
     model = Calendar
-    template_name = 'horarios/calpf_confirm_delete.html'
+    template_name = 'horarios/programasformacion/calpf_confirm_delete.html'
     success_url = reverse_lazy('calpf_list')
 
 
@@ -303,4 +305,33 @@ def admin_dashboard(request):
         'total_competencias': total_competencias,
         'current_date': current_date
     })
+
+# Vista para obtener todos los eventos
+def get_all_events(request):
+    events = []
+    
+    # Obtener eventos de Instructores
+    instructors = Instructor.objects.all()
+    for instructor in instructors:
+        events.append({
+            'id': instructor.id,
+            'title': instructor.nombres + ' ' + instructor.apellidos,
+        })
+    
+    # Obtener eventos de Programas de Formación
+    programas = ProgramaFormacion.objects.all()
+    for programa in programas:
+        events.append({
+            'id': programa.id,
+            'title': programa.codigo_programa,
+        })
+    
+    # Obtener eventos de Ambientes
+    ambientes = Ambiente.objects.all()
+    for ambiente in ambientes:
+        events.append({
+            'id': ambiente.id,
+            'title': ambiente.codigo_ambiente,
+        })
    
+    return JsonResponse(events, safe=False)

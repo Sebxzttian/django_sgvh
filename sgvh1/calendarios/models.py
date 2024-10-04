@@ -9,6 +9,7 @@ class Calendar(models.Model):
     competencia = models.ForeignKey(Competencia, on_delete=models.CASCADE)
     start = models.DateTimeField(null=True, blank=True, verbose_name="Inicio de la fromación")
     end = models.DateTimeField(null=True, blank=True, verbose_name="Fin de la formación")
+    dias_recurrencia = models.JSONField()  # Un campo JSON para almacenar los días de recurrencia (ej. ["lunes", "martes", "viernes"])
     
     class Meta:
         db_table = "calendar"
