@@ -243,7 +243,7 @@ class CalAmbDeleteView(LoginRequiredMixin, DeleteView):
 #Vistas para el calendario de los programas de formacion
 class CalPFListView(LoginRequiredMixin, ListView):
     model = Calendar
-    template_name = 'horarios/programasformacion/calpf_list.html'
+    template_name = 'horarios/calpf/calpf_list.html'
     context_object_name = 'calpfs'
     
     def get_context_data(self, **kwargs):
@@ -254,13 +254,13 @@ class CalPFListView(LoginRequiredMixin, ListView):
 class CalPFCreateView(LoginRequiredMixin, CreateView):
     model = Calendar
     form_class = CalPFForm
-    template_name = 'horarios/programasformacion/calpf_form.html'
+    template_name = 'horarios/calpf/calpf_form.html'
     success_url = reverse_lazy('calpf_list')
 
 class CalPFUpdateView(LoginRequiredMixin, UpdateView):
     model = Calendar
     form_class = CalPFForm
-    template_name = 'horarios/programasformacion/calpf_form.html'
+    template_name = 'horarios/calpf/calpf_form.html'
     success_url = reverse_lazy('calpf_list')
 
 class CalPFDeleteView(LoginRequiredMixin, DeleteView):

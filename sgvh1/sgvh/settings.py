@@ -62,7 +62,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'sgvh_db',
         'USER': 'root',
-        'PASSWORD': 'diego.192',
+        'PASSWORD': 'root',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -90,7 +90,7 @@ REST_FRAMEWORK = {
 LANGUAGE_CODE = 'es'
 TIME_ZONE = 'America/Bogota'
 USE_I18N = True
-USE_TZ = True
+USE_TZ = False
 
 # Archivos Estáticos
 STATIC_URL = 'static/'
