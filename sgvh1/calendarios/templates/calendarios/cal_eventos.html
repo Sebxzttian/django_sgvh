@@ -12,43 +12,41 @@
 </head>
 
 <body>
-    <div class="container d-grid">
+    <div class="container">
         <!-- Filtros -->
-        <div class="container">
-            <label for="instructorFilter">Instructor:</label>
-            <select id="instructorFilter">
-                <option value="">Todos</option>
-                <option value="Hector David Toledo Garcia">Instructor 1</option>
-                <option value="Instructor 2">Instructor 2</option>
-                <!-- Agrega más instructores aquí -->
-            </select>
-
-            <label for="programFilter">Programa de Formación:</label>
-            <select id="programFilter">
-                <option value="">Todos</option>
-                <option value="Programa 1">Programa 1</option>
-                <option value="Programa 2">Programa 2</option>
-                <!-- Agrega más programas aquí -->
-            </select>
-
-            <label for="locationFilter">Ambiente de Formación:</label>
-            <select id="locationFilter">
-                <option value="">Todos</option>
-                <option value="Ambiente 1">Ambiente 1</option>
-                <option value="Ambiente 2">Ambiente 2</option>
-                <!-- Agrega más ambientes aquí -->
-            </select>
-        </div>
+        <form id="event-filter-form" class="mt-4 mb-4">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="instructorFilter" class="form-label">Instructor</label>
+                    <select class="form-select" id="instructorFilter">
+                        <option value="">Seleccione un instructor</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="programaFilter" class="form-label">Programa de Formación</label>
+                    <select class="form-select" id="programaFilter">
+                        <option value="">Seleccione un programa</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="locationFilter" class="form-label">Ambiente</label>
+                    <select class="form-select" id="locationFilter">
+                        <option value="">Seleccione un ambiente</option>
+                    </select>
+                </div>
+            </div>
+            <div class="text-end">
+                <button type="button" id="clearFilters" class="btn btn-secondary">Limpiar Filtros</button>
+            </div>
+        </form>
 
         <!-- Calendario -->
-        <div id="calendar"></div>
+        <div class="mt-4 mb-5" id="calendar"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
     <script src='{% static "js/calendar.js" %}'></script>
