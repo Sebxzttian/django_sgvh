@@ -314,24 +314,24 @@ def get_all_events(request):
     instructors = Instructor.objects.all()
     for instructor in instructors:
         events.append({
-            'id': instructor.id,
-            'title': instructor.nombres + ' ' + instructor.apellidos,
+            'id_instructor': instructor.id,
+            'instructor': instructor.nombres + ' ' + instructor.apellidos,
         })
     
     # Obtener eventos de Programas de Formación
     programas = ProgramaFormacion.objects.all()
     for programa in programas:
         events.append({
-            'id': programa.id,
-            'title': programa.codigo_programa,
+            'id_programa': programa.id,
+            'programa': programa.codigo_programa + ' - ' + programa.nombre_programa,
         })
     
     # Obtener eventos de Ambientes
     ambientes = Ambiente.objects.all()
     for ambiente in ambientes:
         events.append({
-            'id': ambiente.id,
-            'title': ambiente.codigo_ambiente,
+            'id_ambiente': ambiente.id,
+            'ambiente': ambiente.codigo_ambiente + ' - ' + ambiente.nombre_ambiente,
         })
    
     return JsonResponse(events, safe=False)

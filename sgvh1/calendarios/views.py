@@ -22,13 +22,15 @@ def generar_eventos_recurrentes(event):
             dia_recurrencia = dias_semana[dia.lower()]
             if dia_semana_actual == dia_recurrencia:
                 eventos_recurrentes.append({
-                    'title': f"{event.codigo_programa} - {event.nombre_programa}",
-                    'instructor': event.nombres_instructor,
+                    'id_programa': event.programa_id,
+                    'programa': f"{event.codigo_programa} - {event.nombre_programa}",
+                    'id_instructor': event.instructor_id,
+                    'instructor': f"{event.nombres_instructor} {event.apellidos_instructor}",
                     'startDate': datetime.datetime.combine(fecha_actual, event.start.time()).isoformat(),
                     'endDate': datetime.datetime.combine(fecha_actual, event.end.time()).isoformat(),
+                    'id_ambiente': event.ambiente_id,
                     'ambiente': f"{event.codigo_ambiente} - {event.nombre_ambiente}",
-                    'competencia':  event.nombre_competencia,
-                    'norma_competencia': event.norma_competencia,
+                    'competencia':  f"{event.nombre_competencia} - {event.norma_competencia}",
                 })
         fecha_actual += datetime.timedelta(days=1)
 
