@@ -16,7 +16,7 @@
 <!-- Información principal -->
 # SGHV
 
-SGHV is an educational project aimed at achieving better attendance management. It also includes a section for news and library loans.
+SGVH is an educational schedule manager designed to facilitate and optimize the administration of academic schedules. This system allows for better organization and visualization of activities, ensuring that both instructors and students have access to the necessary information for efficient management.
 
 <!-- Autores del proyecto -->
 ## 👨‍💻Authors
