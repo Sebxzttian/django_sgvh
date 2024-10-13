@@ -24,8 +24,7 @@ SGHV is an educational project aimed at achieving better attendance management. 
 - [@Sebxzttian](https://github.com/Sebxzttian)
 
 ## 👨‍🏫Leaders Instructors
-- [@hdtoledo](https://github.com/hdtoledo)
-- [@jlombanar](https://github.com/jlombanar)
+- 
 
 <!-- Documentación oficial -->
 ## Official Documentation
