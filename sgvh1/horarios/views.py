@@ -91,11 +91,26 @@ class ProgramaFormacionListView(LoginRequiredMixin, ListView):
     model = ProgramaFormacion
     template_name = 'horarios/programasformacion/programa_formacion_list.html'
     context_object_name = 'programas'
-    
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        nombre_programa = self.request.GET.get('nombre_programa', None)
+        jornada = self.request.GET.get('jornada', None)
+
+        if nombre_programa:
+            queryset = queryset.filter(nombre_programa__icontains=nombre_programa)
+        if jornada:
+            queryset = queryset.filter(jornada__icontains=jornada)
+
+        return queryset
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = ProgramaFormacionForm()
+        # Para pasar los valores seleccionados al template
+        context['selected_nombre_programa'] = self.request.GET.get('nombre_programa', '')
+        context['selected_jornada'] = self.request.GET.get('jornada', '')
         return context
+
 
 class ProgramaFormacionCreateView(LoginRequiredMixin, CreateView):
     model = ProgramaFormacion
