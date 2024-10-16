@@ -134,11 +134,28 @@ class AmbienteListView(LoginRequiredMixin, ListView):
     model = Ambiente
     template_name = 'horarios/ambientes/ambiente_list.html'
     context_object_name = 'ambientes'
-    
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get('q')
+        sede = self.request.GET.get('sede')
+
+        # Filtrar por código de ambiente
+        if query:
+            queryset = queryset.filter(codigo_ambiente__icontains=query)
+        
+        # Filtrar por sede
+        if sede:
+            queryset = queryset.filter(sede=sede)
+
+        return queryset
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = AmbienteForm()
         return context
+
+
 
 class AmbienteCreateView(LoginRequiredMixin, CreateView):
     model = Ambiente
