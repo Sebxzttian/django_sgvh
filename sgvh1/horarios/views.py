@@ -47,11 +47,27 @@ class InstructorListView(LoginRequiredMixin, ListView):
     model = Instructor
     template_name = 'horarios/instructores/instructor_list.html'
     context_object_name = 'instructores'
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = InstructorForm()
+        # Obtener el valor seleccionado del filtro desde los parámetros GET
+        selected_instructor_id = self.request.GET.get('instructor', '')  # Obtén el valor seleccionado
+        context['instructores'] = Instructor.objects.all()  # Para mostrar todos los instructores en el filtro
+        context['selected_instructor'] = selected_instructor_id  # Pasar el instructor seleccionado al contexto
         return context
+
+    def get_queryset(self):
+        # Obtener el valor seleccionado del filtro desde los parámetros GET
+        instructor_id = self.request.GET.get('instructor')
+
+        # Si un instructor es seleccionado, filtrar por su ID
+        if instructor_id:
+            return Instructor.objects.filter(pk=instructor_id)
+
+        # Si no se selecciona nada, retornar todos los instructores
+        return Instructor.objects.all()
+
+
 
 class InstructorCreateView(LoginRequiredMixin, CreateView):
     model = Instructor
