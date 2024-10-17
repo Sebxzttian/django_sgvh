@@ -16,7 +16,7 @@ class AdministradorListView(LoginRequiredMixin, ListView):
     model = Administrador
     template_name = 'horarios/administradores/administrador_list.html'
     context_object_name = 'administradores'
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = AdministradorForm()
@@ -56,18 +56,15 @@ class InstructorListView(LoginRequiredMixin, ListView):
         context['selected_instructor'] = selected_instructor_id  # Pasar el instructor seleccionado al contexto
         return context
 
+
     def get_queryset(self):
         # Obtener el valor seleccionado del filtro desde los parámetros GET
         instructor_id = self.request.GET.get('instructor')
-
         # Si un instructor es seleccionado, filtrar por su ID
         if instructor_id:
             return Instructor.objects.filter(pk=instructor_id)
-
         # Si no se selecciona nada, retornar todos los instructores
         return Instructor.objects.all()
-
-
 
 class InstructorCreateView(LoginRequiredMixin, CreateView):
     model = Instructor
@@ -96,21 +93,18 @@ class ProgramaFormacionListView(LoginRequiredMixin, ListView):
         queryset = super().get_queryset()
         nombre_programa = self.request.GET.get('nombre_programa', None)
         jornada = self.request.GET.get('jornada', None)
-
         if nombre_programa:
             queryset = queryset.filter(nombre_programa__icontains=nombre_programa)
         if jornada:
             queryset = queryset.filter(jornada__icontains=jornada)
-
         return queryset
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['form'] = ProgramaFormacionForm()
         # Para pasar los valores seleccionados al template
         context['selected_nombre_programa'] = self.request.GET.get('nombre_programa', '')
         context['selected_jornada'] = self.request.GET.get('jornada', '')
         return context
-
 
 class ProgramaFormacionCreateView(LoginRequiredMixin, CreateView):
     model = ProgramaFormacion
@@ -139,23 +133,19 @@ class AmbienteListView(LoginRequiredMixin, ListView):
         queryset = super().get_queryset()
         query = self.request.GET.get('q')
         sede = self.request.GET.get('sede')
-
         # Filtrar por código de ambiente
         if query:
             queryset = queryset.filter(codigo_ambiente__icontains=query)
-        
+
         # Filtrar por sede
         if sede:
             queryset = queryset.filter(sede=sede)
-
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = AmbienteForm()
         return context
-
-
 
 class AmbienteCreateView(LoginRequiredMixin, CreateView):
     model = Ambiente
@@ -183,11 +173,9 @@ class CompetenciaListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         query = self.request.GET.get('q')
-
         # Filtrar por código de norma si se ingresó un valor
         if query:
             queryset = queryset.filter(codigo_norma__icontains=query)
-
         return queryset
 
     def get_context_data(self, **kwargs):
@@ -223,7 +211,7 @@ class CalendarListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['form'] = CalendarForm()
         return context
-    
+
 class CalendarCreateView(LoginRequiredMixin, CreateView):
     model = Calendar
     form_class = CalendarForm
@@ -239,14 +227,14 @@ class CalendarUpdateView(LoginRequiredMixin, UpdateView):
 class CalendarDeleteView(LoginRequiredMixin, DeleteView):
     model = Calendar
     template_name = 'horarios/calendar/calendar_confirm_delete.html'
-    success_url = reverse_lazy('calendar_list') 
+    success_url = reverse_lazy('calendar_list')
 
 #Vistas para el calendario de los instructores
 class CalInstListView(LoginRequiredMixin, ListView):
     model = Calendar
     template_name = 'horarios/calinst/calinst_list.html'
     context_object_name = 'calinsts'
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = CalInstForm()
@@ -267,7 +255,7 @@ class CalInstUpdateView(LoginRequiredMixin, UpdateView):
 class CalInstDeleteView(LoginRequiredMixin, DeleteView):
     model = Calendar
     template_name = 'horarios/calinst/calinst_confirm_delete.html'
-    success_url = reverse_lazy('calinst_list') 
+    success_url = reverse_lazy('calinst_list')
 
 
     #Vistas para el calendario de los ambientes
@@ -275,7 +263,7 @@ class CalAmbListView(LoginRequiredMixin, ListView):
     model = Calendar
     template_name = 'horarios/calamb/calamb_list.html'
     context_object_name = 'calambs'
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = CalAmbForm()
@@ -303,7 +291,7 @@ class CalPFListView(LoginRequiredMixin, ListView):
     model = Calendar
     template_name = 'horarios/calpf/calpf_list.html'
     context_object_name = 'calpfs'
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = CalAmbForm()
@@ -323,7 +311,7 @@ class CalPFUpdateView(LoginRequiredMixin, UpdateView):
 
 class CalPFDeleteView(LoginRequiredMixin, DeleteView):
     model = Calendar
-    template_name = 'horarios/programasformacion/calpf_confirm_delete.html'
+    template_name = 'horarios/calpf/calpf_confirm_delete.html'
     success_url = reverse_lazy('calpf_list')
 
 
@@ -345,7 +333,7 @@ def login_view(request):
 def admin_dashboard(request):
     administrador = request.user
     nombre_completo = f"{administrador.nombres} {administrador.apellidos}"
-    
+
     # Contar el número de registros en cada modelo
     total_administradores = Administrador.objects.count()
     total_instructores = Instructor.objects.count()
@@ -367,7 +355,7 @@ def admin_dashboard(request):
 # Vista para obtener todos los eventos
 def get_all_events(request):
     events = []
-    
+
     # Obtener eventos de Instructores
     instructors = Instructor.objects.all()
     for instructor in instructors:
@@ -375,7 +363,7 @@ def get_all_events(request):
             'id_instructor': instructor.id,
             'instructor': instructor.nombres + ' ' + instructor.apellidos,
         })
-    
+
     # Obtener eventos de Programas de Formación
     programas = ProgramaFormacion.objects.all()
     for programa in programas:
@@ -383,7 +371,7 @@ def get_all_events(request):
             'id_programa': programa.id,
             'programa': programa.codigo_programa + ' - ' + programa.nombre_programa,
         })
-    
+
     # Obtener eventos de Ambientes
     ambientes = Ambiente.objects.all()
     for ambiente in ambientes:
@@ -391,7 +379,7 @@ def get_all_events(request):
             'id_ambiente': ambiente.id,
             'ambiente': ambiente.codigo_ambiente + ' - ' + ambiente.nombre_ambiente,
         })
-   
+
     return JsonResponse(events, safe=False)
 
 #para que se puedan cargar instructores con un archivo csv
@@ -403,7 +391,7 @@ from .models import Instructor
 def upload_instructors_csv(request):
     if request.method == 'POST':
         csv_file = request.FILES['file']
-        
+
         if not csv_file.name.endswith('.csv'):
             messages.error(request, 'El archivo debe ser en formato CSV.')
             return redirect('instructor_list')
@@ -416,7 +404,7 @@ def upload_instructors_csv(request):
             if len(row) < 6:
                 messages.error(request, 'Faltan datos en una de las filas.')
                 continue
-            
+
             # Crea el instructor
             Instructor.objects.create(
                 nombres=row[0],
