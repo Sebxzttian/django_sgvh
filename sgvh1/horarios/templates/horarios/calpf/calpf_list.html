@@ -22,7 +22,7 @@
     <div class="col">
       <h1>Calendario de Programa de Formación</h1>
 
-      <a href="{% url 'calpf_create' %}" class="btn btn-primary mb-3">Crear Nuevo Calendario</a>
+      <a href="{% url 'calendar_create' %}" class="btn btn-primary mb-3">Crear Nuevo Calendario</a>
 
       <table class="table table-striped">
         <thead>
@@ -45,10 +45,10 @@
             <td>{{ calpf.end|date:"Y-m-d H:i" }}</td>
             <td>
               <!-- Botón para editar con icono -->
-              <a href="{% url 'calpf_edit' calpf.pk %}" class="btn btn-warning btn-sm" title="Editar">
+              <a href="{% url 'calendar_edit' calpf.pk %}" class="btn btn-warning btn-sm" title="Editar">
                   <i class="bi bi-pencil"></i>
               </a>
-              
+
               <!-- Botón para eliminar con icono y modal -->
               <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ calpf.pk }}" title="Eliminar">
                   <i class="bi bi-trash"></i>
