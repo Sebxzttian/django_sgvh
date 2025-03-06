@@ -1,7 +1,7 @@
 from pathlib import Path
-import os  # Añadido para manejar rutas de archivos
+import os
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Base Directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -60,11 +60,11 @@ WSGI_APPLICATION = 'sgvh.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sgvh_db',  
-        'USER': 'root',                 
-        'PASSWORD': 'root',          
-        'HOST': 'localhost',                  
-        'PORT': '3306',                       
+        'NAME': 'sgvh_db',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
@@ -82,10 +82,11 @@ TIME_ZONE = 'America/Bogota'  # Ajustado a la zona horaria de Colombia
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+# Archivos Estáticos
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Añadido para colectar archivos estáticos
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'horarios/static')]  # Añadido para buscar archivos estáticos adicionales
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'horarios/static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'calendarios/static')]
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

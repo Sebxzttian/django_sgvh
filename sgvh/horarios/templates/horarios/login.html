@@ -6,6 +6,7 @@
     <title>Inicio de Sesión - SGVH</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<<<<<<< Updated upstream:sgvh/horarios/templates/horarios/login.html
     <style>
         body {
             background-image: url('/Img/Sena-Garzón.jpg');
@@ -69,6 +70,213 @@
             color: white;
         }
     </style>
+=======
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+  <!-- Actualiza la sección de estilos -->
+<style>
+    :root {
+        --primary-color: #28a745;     /* Verde SENA original */
+        --primary-dark: #218838;      /* Verde oscuro */
+        --primary-hover: #1e7e34;     /* Verde para hover */
+    }
+
+    body {
+        background-image: url("{% static 'img/Sena-Garzón.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .header {
+        background-color: var(--primary-color);
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .login-container {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 2.5rem;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .login-container h2 {
+        color: var(--primary-color);
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: #495057;
+    }
+
+    .input-group {
+        margin-bottom: 1.5rem;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(40, 167, 69, 0.1);
+    }
+
+    .input-group-text {
+        background-color: rgba(248, 249, 250, 0.9);
+        border: 1px solid rgba(206, 212, 218, 0.5);
+        border-right: none;
+        padding: 0.75rem 1rem;
+        color: var(--primary-color);
+    }
+
+    .form-control {
+        border-left: none;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+        background-color: rgba(255, 255, 255, 0.95);
+        border-color: rgba(206, 212, 218, 0.5);
+    }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        border-color: transparent;
+        padding: 0.75rem 1.5rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: var(--primary-dark);
+        border-color: transparent;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+    }
+
+    .footer {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 2rem 0;
+        margin-top: auto;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer p {
+        color: white;
+        opacity: 0.9;
+    }
+
+    .social-icons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+    }
+
+    .social-icons a {
+        color: white;
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
+        margin: 0 10px;
+        text-decoration: none;
+    }
+
+    .social-icons a:hover {
+        color: rgba(255, 255, 255, 0.8);
+        transform: translateY(-3px);
+    }
+
+    /* Añadir tooltips personalizados */
+    .social-icons a::after {
+        content: attr(title);
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 5px 10px;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        border-radius: 4px;
+        font-size: 12px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .social-icons a:hover::after {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .admin-logo-container {
+        margin: 1.5rem 0;
+    }
+
+    .admin-icon {
+        font-size: 5rem;
+        color: var(--primary-color);
+        animation: fadeInScale 0.5s ease-out;
+        filter: drop-shadow(0 2px 4px rgba(40, 167, 69, 0.2));
+    }
+
+    @keyframes fadeInScale {
+        from {
+            opacity: 0;
+            transform: scale(0.8) translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }
+
+    /* Efecto hover en el icono */
+    .admin-icon:hover {
+        color: var(--primary-dark);
+        transform: scale(1.05);
+        transition: all 0.3s ease;
+    }
+
+    /* Efecto de brillo suave en el contenedor */
+    .login-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 15px;
+        background: linear-gradient(45deg, 
+            rgba(40, 167, 69, 0.1), 
+            rgba(255, 255, 255, 0.1), 
+            rgba(40, 167, 69, 0.1));
+        z-index: -1;
+    }
+
+    /* Mejoras en el botón de mostrar contraseña */
+    .btn-outline-secondary {
+        border-color: rgba(206, 212, 218, 0.5);
+        color: var(--primary-color);
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: var(--primary-light);
+        color: var(--primary-dark);
+        border-color: rgba(206, 212, 218, 0.5);
+    }
+
+    /* Ajuste de espaciado en el contenedor principal */
+    .main-content {
+        padding: 2rem 0;
+    }
+</style>
+>>>>>>> Stashed changes:sgvh1/horarios/templates/horarios/login.html
 </head>
 <body>
     <header class="header">
@@ -84,6 +292,7 @@
         </div>
     </header>
 
+<<<<<<< Updated upstream:sgvh/horarios/templates/horarios/login.html
     <div class="main-content">
         <div class="container">
             <div class="row justify-content-center">
@@ -101,21 +310,44 @@
                                     <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
                                     <input type="text" class="form-control" id="username" name="username" required>
                                 </div>
+=======
+    <div class="main-content container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="login-container">
+                    <h2 class="text-center">Inicio de Sesión para Administradores</h2>
+                    
+                    <!-- Nuevo div para el logo de admin -->
+                    <div class="admin-logo-container text-center mb-4">
+                        <i class="bi bi-person-circle admin-icon"></i>
+                    </div>
+
+                    <form method="post" id="loginForm">
+                        {% csrf_token %}
+                        <div class="mb-4">
+                            <label for="username" class="form-label">Correo Institucional</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                                <input type="email" class="form-control" id="username" name="username" required>
+>>>>>>> Stashed changes:sgvh1/horarios/templates/horarios/login.html
                             </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Contraseña</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
-                                    <input type="password" class="form-control" id="password" name="password" required>
-                                </div>
-                            </div>
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="bi bi-box-arrow-in-right me-2"></i> Iniciar Sesión
+                        </div>
+                        <div class="mb-4">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                    <i class="bi bi-eye-fill"></i>
                                 </button>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -125,19 +357,29 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                    Servicio Nacional de Aprendizaje SENA – Dirección General Calle 57 No. 8-69, Bogotá D.C – PBX (57 1) 5461500<br>
-                    Línea gratuita de atención al ciudadano Bogotá 3430111 – Resto del país 018000 910270<br>
-                    Horario de atención: lunes a viernes de 8:00 am a 5:30 pm<br>
-                    Correo electrónico para notificaciones judiciales: servicioalciudadano@sena.edu.co<br>
-                    Todos los derechos reservados © 2024
+                    <p class="mb-1">Servicio Nacional de Aprendizaje SENA – Dirección General</p>
+                    <p class="mb-1">Calle 57 No. 8-69, Bogotá D.C – PBX (57 1) 5461500</p>
+                    <p class="mb-1">Línea gratuita de atención al ciudadano: Bogotá 3430111 – Resto del país 018000 910270</p>
+                    <p class="mb-1">Horario de atención: lunes a viernes de 8:00 am a 5:30 pm</p>
+                    <p class="mb-0">Todos los derechos reservados © 2024</p>
                 </div>
                 <div class="col-md-4">
                     <div class="social-icons">
-                        <a href="#"><i class="bi bi-instagram"></i></a>
-                        <a href="#"><i class="bi bi-facebook"></i></a>
-                        <a href="#"><i class="bi bi-twitter"></i></a>
-                        <a href="#"><i class="bi bi-youtube"></i></a>
-                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                        <a href="https://www.facebook.com/SENA" target="_blank" title="Facebook SENA">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="https://twitter.com/SENAComunica" target="_blank" title="Twitter SENA">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                        <a href="https://www.instagram.com/senacomunica/" target="_blank" title="Instagram SENA">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="https://www.youtube.com/user/SENATV" target="_blank" title="YouTube SENA">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/school/servicio-nacional-de-aprendizaje-sena-/" target="_blank" title="LinkedIn SENA">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -145,5 +387,59 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle password visibility
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('#password');
+
+            togglePassword.addEventListener('click', function() {
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                this.querySelector('i').classList.toggle('bi-eye-fill');
+                this.querySelector('i').classList.toggle('bi-eye-slash-fill');
+            });
+
+            // Form submission handling
+            const loginForm = document.querySelector('#loginForm');
+            loginForm.addEventListener('submit', function(e) {
+                const email = document.querySelector('#username').value;
+                const password = document.querySelector('#password').value;
+
+                if (!email || !password) {
+                    e.preventDefault();
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Por favor, completa todos los campos',
+                        icon: 'error',
+                        confirmButtonColor: '#28a745'
+                    });
+                    return;
+                }
+
+                if (!email.endsWith('@sena.edu.co')) {
+                    e.preventDefault();
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Debe usar un correo institucional (@sena.edu.co)',
+                        icon: 'error',
+                        confirmButtonColor: '#28a745'
+                    });
+                    return;
+                }
+            });
+
+            // Show error messages if any
+            {% if error_message %}
+                Swal.fire({
+                    title: 'Error',
+                    text: '{{ error_message }}',
+                    icon: 'error',
+                    confirmButtonColor: '#28a745'
+                });
+            {% endif %}
+        });
+    </script>
 </body>
 </html>
